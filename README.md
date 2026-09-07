@@ -117,13 +117,31 @@ extra exigido cuesta conversiones.
 
 1. Sube el repositorio a GitHub.
 2. En Vercel: **Add New → Project** e importa el repositorio.
-3. Vercel detecta Vite solo. `vercel.json` ya define el resto:
-   - reescritura de rutas para que `/proyecto/rebeca-matte` funcione al recargar;
-   - caché inmutable de un año para `/assets/*`;
-   - cabeceras de seguridad.
-4. Deploy. Cada push a la rama principal vuelve a desplegar.
+3. Vercel detecta Vite solo. No hay que tocar nada de la configuración.
+4. Deploy. Cada push a `main` vuelve a desplegar.
 
 No hay variables de entorno que configurar.
+
+### Qué hace `vercel.json`
+
+El archivo no admite comentarios —el esquema de Vercel rechaza cualquier
+propiedad que no reconozca, incluida `comment`—, así que la explicación va aquí:
+
+**`rewrites`** — Esto es una SPA: el servidor solo tiene `index.html` y las
+rutas las resuelve React Router en el navegador. Sin la reescritura, entrar
+directo a `/proyecto/rebeca-matte` o recargar esa página devuelve 404, porque
+Vercel busca un archivo con ese nombre y no existe. La expresión excluye
+`assets/`, el favicon, la imagen Open Graph, `robots.txt` y `sitemap.xml`:
+esos sí son archivos reales y deben servirse tal cual, no como `index.html`.
+
+**`headers` de `/assets/*`** — Vite pone un hash en el nombre de cada archivo
+compilado (`index-BpaivkaF.css`). Si el contenido cambia, cambia el nombre, así
+que se pueden cachear un año sin riesgo de servir algo viejo.
+
+**`headers` de `/(.*)`** — Cabeceras de seguridad estándar: impedir que el
+navegador adivine tipos MIME, bloquear el embebido en iframes de otros
+dominios, limitar el referer que se filtra al salir del sitio y desactivar
+cámara, micrófono y geolocalización, que el sitio no usa.
 
 ---
 
