@@ -1,16 +1,17 @@
-import { Link } from 'react-router-dom';
-
 import { Contenedor, Icono, Logo } from '../ui/index.js';
 import { EMPRESA, NAVEGACION } from '../../data/empresa.js';
-import { PROYECTOS } from '../../data/proyectos.js';
 import estilos from './Footer.module.css';
 
 /**
  * Pie de pagina.
  *
- * Repite la promesa de marca a gran escala, entrega los datos de contacto
- * verificables y enlaza los proyectos vigentes. Cerrar con la promesa deja
- * al visitante con el mismo mensaje con que abrio la pagina.
+ * Repite la promesa de marca a gran escala y entrega los datos de contacto
+ * verificables. Cerrar con la promesa deja al visitante con el mismo mensaje
+ * con que abrio la pagina.
+ *
+ * Tres columnas: marca, secciones del sitio y contacto. El listado de los
+ * nueve proyectos se retiro por densidad; el portafolio y el sitemap ya
+ * cubren esos enlaces.
  */
 export function Footer() {
   const anio = new Date().getFullYear();
@@ -52,20 +53,6 @@ export function Footer() {
               </a>
             </div>
           </div>
-
-          <nav className={estilos.columna} aria-label="Proyectos">
-            <h2 className={estilos.tituloColumna}>Proyectos</h2>
-            <ul>
-              {PROYECTOS.map((proyecto) => (
-                <li key={proyecto.slug}>
-                  <Link to={`/proyecto/${proyecto.slug}`} className={estilos.enlace}>
-                    {proyecto.nombre}
-                    <span className={estilos.comuna}>{proyecto.comuna}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
 
           <nav className={estilos.columna} aria-label="Secciones">
             <h2 className={estilos.tituloColumna}>Sitio</h2>

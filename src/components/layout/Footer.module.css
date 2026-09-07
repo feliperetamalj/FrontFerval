@@ -21,7 +21,7 @@
 
 .rejilla {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 0.7fr 1.2fr;
+  grid-template-columns: 1.6fr 1fr 1.3fr;
   gap: var(--space-8) var(--space-6);
   padding-top: var(--space-8);
   border-top: 1px solid var(--border-inverse);
@@ -90,11 +90,6 @@
 }
 
 .enlace:hover { color: var(--brand); }
-
-.comuna {
-  color: var(--graf-500);
-  font-size: var(--text-xs);
-}
 
 .listaContacto li {
   display: flex;
