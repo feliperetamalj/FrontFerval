@@ -1,0 +1,466 @@
+/* ==========================================================================
+   Portada
+   ========================================================================== */
+.portada {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: 68vh;
+  padding-block: 160px var(--space-9);
+  background-color: var(--graf-950);
+  color: var(--white);
+  overflow: hidden;
+}
+
+.portadaImg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.portadaVelo {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(19, 18, 21, 0.72) 0%,
+    rgba(19, 18, 21, 0.30) 42%,
+    rgba(19, 18, 21, 0.90) 100%
+  );
+}
+
+.portadaContenido { position: relative; z-index: var(--z-base); }
+
+.migas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+  color: rgba(255, 255, 255, 0.60);
+  font-size: var(--text-sm);
+}
+
+.migas a { color: rgba(255, 255, 255, 0.78); text-decoration: none; }
+.migas a:hover { color: var(--brand); }
+.migas [aria-current] { color: var(--white); }
+
+.insignias {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-5);
+}
+
+.nombre {
+  font-size: var(--text-4xl);
+  font-weight: var(--weight-black);
+  letter-spacing: -0.04em;
+  line-height: 0.98;
+  color: var(--white);
+}
+
+.titular {
+  max-width: 42ch;
+  margin-top: var(--space-4);
+  color: rgba(255, 255, 255, 0.86);
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-tight);
+  line-height: 1.3;
+}
+
+.ubicacion {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-5);
+  color: rgba(255, 255, 255, 0.72);
+  font-size: var(--text-sm);
+}
+
+.ubicacion svg { color: var(--brand); }
+
+/* ==========================================================================
+   Barra de ficha tecnica
+   ========================================================================== */
+.barraDatos {
+  position: relative;
+  z-index: var(--z-base);
+  padding-block: var(--space-6);
+  background-color: var(--surface-raised);
+  border-bottom: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-sm);
+}
+
+.barraDatos > div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+}
+
+.datos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-7);
+}
+
+.dato dt,
+.datoDestacado dt {
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.dato dd {
+  margin-top: 2px;
+  font-family: var(--font-display);
+  font-size: var(--text-md);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+}
+
+/* El precio se destaca sobre el resto de la ficha. */
+.datoDestacado {
+  padding-inline-end: var(--space-7);
+  border-inline-end: 1px solid var(--border-default);
+}
+
+.datoDestacado dd {
+  margin-top: 2px;
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-tight);
+  line-height: 1.1;
+  color: var(--brand-on-light);
+}
+
+.accionesBarra { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+
+/* ==========================================================================
+   Descripcion y caracteristicas
+   ========================================================================== */
+.descripcionBloque {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: var(--space-9);
+  align-items: start;
+}
+
+.tituloBloque,
+.tituloSeccion {
+  margin-bottom: var(--space-5);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-tight);
+}
+
+.tituloSeccion { margin-bottom: var(--space-6); font-size: var(--text-2xl); }
+
+.descripcion {
+  color: var(--text-secondary);
+  font-size: var(--text-md);
+  line-height: var(--leading-relaxed);
+}
+
+.etapas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+
+.etapas li {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--space-3) var(--space-5);
+  background-color: var(--surface-sunken);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+}
+
+.etapaNombre {
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.etapaValor {
+  font-family: var(--font-display);
+  font-size: var(--text-md);
+  font-weight: var(--weight-semibold);
+}
+
+.enlaceMapa {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-6);
+  color: var(--brand-on-light);
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  text-decoration: none;
+}
+
+.enlaceMapa:hover { text-decoration: underline; }
+
+.amenidades {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.amenidades li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+}
+
+.amenidades li:last-child { border-bottom: 0; }
+.amenidades svg { flex-shrink: 0; margin-top: 2px; color: var(--brand); }
+
+/* ==========================================================================
+   Modelos
+   ========================================================================== */
+.modelos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--space-5);
+}
+
+.celdaModelo { display: flex; }
+
+.modelo {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: var(--space-6);
+  background-color: var(--surface-raised);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  transition: border-color var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
+}
+
+.modelo:hover { border-color: var(--cyan-200); box-shadow: var(--shadow-md); }
+
+.modeloEncabezado {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.modeloNombre {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-tight);
+  line-height: 1.2;
+}
+
+.modeloTipologia {
+  margin-top: 2px;
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+}
+
+.modeloSuperficie {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex-shrink: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-tight);
+  line-height: 1.1;
+}
+
+.modeloSuperficieNota {
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: var(--weight-regular);
+  letter-spacing: 0;
+}
+
+.modeloSpecs {
+  display: flex;
+  gap: var(--space-5);
+  margin-top: var(--space-4);
+}
+
+.modeloSpecs > div {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+}
+
+.modeloSpecs dt { display: flex; color: var(--text-muted); }
+
+.modeloDetalle {
+  flex: 1;
+  margin-top: var(--space-4);
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+}
+
+.modeloExtras {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+.modeloExtras li {
+  padding: 3px var(--space-3);
+  background-color: var(--surface-sunken);
+  border-radius: var(--radius-full);
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+}
+
+.modeloPie {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.modeloPrecio {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-tight);
+  line-height: 1.1;
+  color: var(--text-primary);
+}
+
+.modeloPrecioEtiqueta {
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   Equipo de venta
+   ========================================================================== */
+.venta {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: var(--space-8);
+  align-items: center;
+}
+
+.ventaTitulo {
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-tight);
+  line-height: 1.15;
+  color: var(--white);
+}
+
+.ventaTexto {
+  max-width: 40ch;
+  margin-top: var(--space-4);
+  color: var(--text-on-inverse-muted);
+  font-size: var(--text-md);
+  line-height: var(--leading-relaxed);
+}
+
+.ejecutivas { display: flex; flex-direction: column; gap: var(--space-3); }
+
+.ejecutiva {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-inverse);
+  border-radius: var(--radius-lg);
+}
+
+.ejecutivaDatos h3 {
+  color: var(--white);
+  font-size: var(--text-md);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-tight);
+}
+
+.ejecutivaCorreo {
+  color: var(--text-on-inverse-muted);
+  font-size: var(--text-sm);
+  text-decoration: none;
+}
+
+.ejecutivaCorreo:hover { color: var(--brand); text-decoration: underline; }
+
+.ventaAcciones { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+
+/* ==========================================================================
+   Otros proyectos
+   ========================================================================== */
+.otros {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-5);
+}
+
+/* ==========================================================================
+   Adaptacion
+   ========================================================================== */
+@media (max-width: 1020px) {
+  .descripcionBloque { grid-template-columns: 1fr; gap: var(--space-7); }
+  .venta { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 780px) {
+  .portada { min-height: auto; padding-block: 130px var(--space-8); }
+  .barraDatos > div { flex-direction: column; align-items: stretch; }
+  .datos { gap: var(--space-5) var(--space-6); }
+  .datoDestacado {
+    width: 100%;
+    padding-inline-end: 0;
+    padding-bottom: var(--space-4);
+    border-inline-end: 0;
+    border-bottom: 1px solid var(--border-default);
+  }
+  .accionesBarra > * { flex: 1 1 100%; }
+}
+
+@media (max-width: 560px) {
+  .modelos { grid-template-columns: 1fr; }
+  .modeloPie { flex-direction: column; align-items: stretch; gap: var(--space-4); }
+}

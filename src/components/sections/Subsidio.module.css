@@ -1,0 +1,168 @@
+.disposicion {
+  position: relative;
+  z-index: var(--z-base);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-9);
+  align-items: start;
+}
+
+/* Fotografia de apoyo, muy atenuada: aporta textura sin restar legibilidad. */
+.fondo {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-end: 0;
+  width: 45%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.16;
+  mask-image: linear-gradient(90deg, transparent, #000 55%);
+  pointer-events: none;
+}
+
+.etiqueta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+  color: var(--brand);
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+}
+
+.notch {
+  width: 16px;
+  height: 16px;
+  background-color: var(--brand);
+  clip-path: polygon(0 0, 100% 0, 100% 62%, 62% 62%, 62% 100%, 0 100%);
+}
+
+.titulo {
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-black);
+  letter-spacing: var(--tracking-tighter);
+  line-height: var(--leading-tight);
+  color: var(--white);
+}
+
+.acento {
+  display: block;
+  margin-top: var(--space-3);
+  font-size: 0.62em;
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-tight);
+  color: var(--brand);
+}
+
+.bajada {
+  max-width: 46ch;
+  margin-top: var(--space-6);
+  color: var(--text-on-inverse-muted);
+  font-size: var(--text-md);
+  line-height: var(--leading-relaxed);
+}
+
+.beneficios {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+
+.beneficios li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--white);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+}
+
+.beneficios svg { color: var(--brand); flex-shrink: 0; }
+.beneficios em { font-style: italic; color: var(--brand); }
+
+.cta { margin-top: var(--space-7); }
+
+.proyectosSubsidio {
+  margin-top: var(--space-6);
+  color: var(--graf-400);
+  font-size: var(--text-sm);
+}
+
+.enlaceProyecto {
+  color: var(--text-on-inverse-muted);
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 255, 255, 0.25);
+}
+
+.enlaceProyecto:hover { color: var(--brand); }
+
+/* --- Preguntas frecuentes ------------------------------------------------- */
+/*
+  El panel se apoya sobre la fotografia de fondo. Un velo casi transparente
+  dejaba pasar demasiado detalle y ensuciaba la lectura, asi que se le da
+  cuerpo con un fondo mas denso y desenfoque: se lee como una superficie.
+*/
+.faq {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border-inverse);
+  border-radius: var(--radius-lg);
+  background-color: rgba(27, 25, 29, 0.72);
+  backdrop-filter: blur(14px) saturate(150%);
+  overflow: hidden;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .faq {
+    background-color: var(--graf-900);
+    backdrop-filter: none;
+  }
+}
+
+.detalle { border-bottom: 1px solid var(--border-inverse); }
+.detalle:last-child { border-bottom: 0; }
+
+.pregunta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-5) var(--space-6);
+  color: var(--white);
+  font-family: var(--font-display);
+  font-size: var(--text-md);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+  list-style: none;
+  transition: background-color var(--dur-fast) var(--ease-out);
+}
+
+/* Oculta el triangulo nativo en Safari. */
+.pregunta::-webkit-details-marker { display: none; }
+
+.pregunta:hover { background-color: rgba(255, 255, 255, 0.04); }
+
+.iconoFaq {
+  flex-shrink: 0;
+  color: var(--brand);
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+/* El signo "+" gira hasta convertirse en "x" al abrirse. */
+.detalle[open] .iconoFaq { transform: rotate(45deg); }
+
+.respuesta {
+  padding: 0 var(--space-6) var(--space-6);
+  color: var(--text-on-inverse-muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+}
+
+@media (max-width: 960px) {
+  .disposicion { grid-template-columns: 1fr; gap: var(--space-8); }
+  .fondo { width: 100%; opacity: 0.06; mask-image: none; }
+}

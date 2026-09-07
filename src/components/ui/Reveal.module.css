@@ -1,0 +1,21 @@
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+  transition:
+    opacity var(--dur-reveal) var(--ease-out),
+    transform var(--dur-reveal) var(--ease-out);
+}
+
+.visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Sin movimiento: solo un fundido corto, nunca desplazamiento vertical. */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    transform: none;
+    transition: opacity 200ms linear;
+    transition-delay: 0ms !important;
+  }
+}

@@ -1,0 +1,120 @@
+.disposicion {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-9);
+  align-items: center;
+}
+
+.figura {
+  position: relative;
+  margin: 0;
+}
+
+.imagen {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+}
+
+/*
+  Muesca del isotipo. En el logo, el recorte de la esquina inferior derecha
+  deja ver el cyan del marco; aqui se reproduce igual sobre la fotografia.
+  Rellenarla con el color de fondo hacia que pareciera un error de recorte.
+*/
+.figura::after {
+  content: '';
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline-end: 0;
+  width: 96px;
+  height: 96px;
+  background-color: var(--brand);
+  border-start-start-radius: var(--radius-lg);
+  border-end-end-radius: var(--radius-lg);
+}
+
+.pie {
+  position: absolute;
+  inset-block-end: var(--space-4);
+  inset-inline-start: var(--space-4);
+  z-index: var(--z-base);
+  max-width: 60%;
+  padding: var(--space-2) var(--space-4);
+  background-color: rgba(19, 18, 21, 0.62);
+  backdrop-filter: blur(10px);
+  border-radius: var(--radius-full);
+  color: var(--white);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+}
+
+.etiqueta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+  color: var(--brand-on-light);
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+}
+
+.notch {
+  width: 16px;
+  height: 16px;
+  background-color: var(--brand);
+  clip-path: polygon(0 0, 100% 0, 100% 62%, 62% 62%, 62% 100%, 0 100%);
+}
+
+.titulo {
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-black);
+  letter-spacing: var(--tracking-tighter);
+  line-height: var(--leading-tight);
+}
+
+.parrafos {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+  color: var(--text-secondary);
+  font-size: var(--text-md);
+  line-height: var(--leading-relaxed);
+}
+
+.cifras {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-7);
+  margin-block: var(--space-8);
+  padding-block: var(--space-6);
+  border-block: 1px solid var(--border-subtle);
+}
+
+.cifras dt {
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.cifras dd {
+  margin-top: var(--space-1);
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-tight);
+  line-height: 1;
+  color: var(--text-primary);
+}
+
+@media (max-width: 960px) {
+  .disposicion { grid-template-columns: 1fr; gap: var(--space-8); }
+  .columnaImagen { order: -1; }
+  .figura::after { width: 64px; height: 64px; }
+}

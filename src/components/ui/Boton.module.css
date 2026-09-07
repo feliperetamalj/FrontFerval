@@ -1,0 +1,118 @@
+.boton {
+  --altura: 48px;
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--altura);
+  padding-inline: var(--space-6);
+  border: 1px solid transparent;
+  border-radius: var(--radius-full);
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.01em;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  /* Solo se animan propiedades del compositor. */
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+/* Retroalimentacion en el momento de presionar, no al soltar. */
+.boton:active { transform: scale(0.975); }
+
+.boton:disabled,
+.boton[aria-disabled='true'] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.etiqueta { display: inline-block; }
+
+.icono {
+  flex-shrink: 0;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+/* La flecha avanza al pasar el cursor: insinua la direccion de la accion. */
+.boton:hover .icono { transform: translateX(3px); }
+
+/* --- Variantes ------------------------------------------------------------ */
+
+/* Cyan de marca con texto grafito: 6.03:1. */
+.primario {
+  background-color: var(--brand);
+  color: var(--on-brand);
+  box-shadow: var(--shadow-brand);
+}
+.primario:hover { background-color: var(--brand-hover); }
+.primario:active { background-color: var(--brand-pressed); }
+
+.secundario {
+  background-color: var(--surface-inverse);
+  color: var(--text-on-inverse);
+}
+.secundario:hover { background-color: var(--graf-700); }
+
+.contorno {
+  background-color: transparent;
+  border-color: var(--border-strong);
+  color: var(--text-primary);
+}
+.contorno:hover {
+  border-color: var(--text-primary);
+  background-color: var(--graf-50);
+}
+
+/* Contorno para usar sobre fondos oscuros o sobre fotografia. */
+.contornoClaro {
+  background-color: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.32);
+  color: var(--white);
+  backdrop-filter: blur(12px);
+}
+.contornoClaro:hover {
+  background-color: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.55);
+}
+
+.fantasma {
+  background-color: transparent;
+  color: var(--text-primary);
+  padding-inline: var(--space-3);
+}
+.fantasma:hover { color: var(--brand-on-light); }
+
+/* --- Tamanos -------------------------------------------------------------- */
+.sm {
+  --altura: 40px;
+  padding-inline: var(--space-5);
+  font-size: var(--text-xs);
+}
+
+.md { --altura: 48px; }
+
+.lg {
+  --altura: 56px;
+  padding-inline: var(--space-7);
+  font-size: var(--text-base);
+}
+
+.anchoCompleto { width: 100%; }
+
+/* Sin transparencias cuando el usuario las desactiva. */
+@media (prefers-reduced-transparency: reduce) {
+  .contornoClaro {
+    background-color: var(--graf-800);
+    backdrop-filter: none;
+  }
+}

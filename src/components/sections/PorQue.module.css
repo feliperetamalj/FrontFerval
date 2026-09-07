@@ -1,0 +1,88 @@
+.rejilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-5);
+}
+
+.celda { display: flex; }
+
+.tarjeta {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: var(--space-6);
+  background-color: var(--surface-raised);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition:
+    border-color var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out);
+}
+
+/*
+  Muesca del isotipo aplicada como recurso grafico: un cuadrado cyan que asoma
+  por la esquina inferior derecha y crece al pasar el cursor.
+*/
+.tarjeta::after {
+  content: '';
+  position: absolute;
+  inset-block-end: -18px;
+  inset-inline-end: -18px;
+  width: 46px;
+  height: 46px;
+  background-color: var(--brand);
+  opacity: 0.14;
+  transition:
+    transform var(--dur-slow) var(--ease-out),
+    opacity var(--dur-slow) var(--ease-out);
+}
+
+.tarjeta:hover {
+  border-color: var(--cyan-200);
+  box-shadow: var(--shadow-md);
+}
+
+.tarjeta:hover::after {
+  transform: scale(1.5);
+  opacity: 0.2;
+}
+
+.numero {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-wide);
+  color: var(--brand-on-light);
+}
+
+.titulo {
+  margin-top: var(--space-4);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-tight);
+  line-height: 1.2;
+}
+
+.texto {
+  flex: 1;
+  margin-top: var(--space-3);
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+}
+
+/* Dato verificable que sostiene el pilar. */
+.nota {
+  position: relative;
+  margin-top: var(--space-5);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}

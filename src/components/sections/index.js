@@ -1,0 +1,10 @@
+/** Secciones de la portada. */
+export { Hero } from './Hero.jsx';
+export { Portafolio } from './Portafolio.jsx';
+export { PorQue } from './PorQue.jsx';
+export { Subsidio } from './Subsidio.jsx';
+export { Proceso } from './Proceso.jsx';
+export { Nosotros } from './Nosotros.jsx';
+export { Contacto } from './Contacto.jsx';
+export { ProyectoCard } from './ProyectoCard.jsx';
+export { Galeria } from './Galeria.jsx';

@@ -1,0 +1,61 @@
+.etiqueta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 5px var(--space-3);
+  border: 1px solid transparent;
+  border-radius: var(--radius-full);
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.punto {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: currentColor;
+  flex-shrink: 0;
+}
+
+.neutro {
+  background-color: var(--graf-100);
+  border-color: var(--graf-200);
+  color: var(--text-secondary);
+}
+
+.marca {
+  background-color: var(--brand-subtle);
+  border-color: var(--cyan-200);
+  color: var(--cyan-800);
+}
+
+.exito {
+  background-color: var(--status-success-bg);
+  border-color: color-mix(in srgb, var(--status-success) 25%, transparent);
+  color: var(--status-success);
+}
+
+.aviso {
+  background-color: var(--status-highlight-bg);
+  border-color: color-mix(in srgb, var(--status-highlight) 25%, transparent);
+  color: var(--status-highlight);
+}
+
+/* Sobre fotografia u otros fondos oscuros. */
+.claro {
+  background-color: rgba(19, 18, 21, 0.55);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: var(--white);
+  backdrop-filter: blur(10px);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .claro {
+    background-color: var(--graf-900);
+    backdrop-filter: none;
+  }
+}

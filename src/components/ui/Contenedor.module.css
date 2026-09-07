@@ -1,0 +1,14 @@
+.contenedor {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* Ancho por defecto: portafolio, encabezados de seccion. */
+.normal { max-width: var(--container-max); }
+
+/* Columna de lectura: parrafos largos, no supera ~70 caracteres. */
+.angosto { max-width: var(--container-narrow); }
+
+/* Casi a sangre: galerias y bandas de imagen. */
+.ancho { max-width: 1560px; }

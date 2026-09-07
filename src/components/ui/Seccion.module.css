@@ -1,0 +1,96 @@
+.seccion {
+  position: relative;
+  padding-block: var(--section-y);
+}
+
+/* --- Fondos --------------------------------------------------------------- */
+.clara { background-color: var(--surface-page); }
+.hundida { background-color: var(--surface-sunken); }
+
+.oscura {
+  background-color: var(--surface-inverse);
+  color: var(--text-on-inverse);
+}
+
+/* --- Densidad vertical ---------------------------------------------------- */
+.normal { }
+.compacto { padding-block: calc(var(--section-y) * 0.55); }
+.amplio { padding-block: calc(var(--section-y) * 1.25); }
+
+/* --- Encabezado ----------------------------------------------------------- */
+.encabezado {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-6);
+  margin-bottom: var(--space-8);
+}
+
+.encabezadoTexto { max-width: 46rem; }
+
+.centro {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.centro .encabezadoTexto { margin-inline: auto; }
+
+/* Etiqueta superior: pequena, espaciada y en el cyan de marca.
+   Sobre fondo claro usa la variante oscurecida para cumplir contraste. */
+.etiquetaSeccion {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+  color: var(--brand-on-light);
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+/* Guion corto que precede a la etiqueta, ecom del marco del logo. */
+.etiquetaSeccion::before {
+  content: '';
+  width: 28px;
+  height: 2px;
+  background-color: var(--brand);
+  flex-shrink: 0;
+}
+
+.centro .etiquetaSeccion { justify-content: center; }
+
+.oscura .etiquetaSeccion { color: var(--brand); }
+
+.titulo {
+  font-size: var(--text-3xl);
+  letter-spacing: var(--tracking-tighter);
+  line-height: var(--leading-tight);
+}
+
+.bajada {
+  margin-top: var(--space-5);
+  color: var(--text-secondary);
+  font-size: var(--text-lg);
+  line-height: var(--leading-relaxed);
+  max-width: 38rem;
+}
+
+.centro .bajada { margin-inline: auto; }
+
+.oscura .bajada { color: var(--text-on-inverse-muted); }
+
+.accion { flex-shrink: 0; padding-bottom: var(--space-2); }
+
+@media (max-width: 780px) {
+  .encabezado {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-5);
+  }
+  .centro { align-items: center; }
+  .accion { padding-bottom: 0; }
+}

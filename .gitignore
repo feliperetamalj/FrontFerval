@@ -1,0 +1,27 @@
+# Dependencias
+node_modules/
+
+# Build
+dist/
+dist-ssr/
+*.local
+
+# Entorno
+.env
+.env.*
+!.env.example
+
+# Editor
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# Vercel
+.vercel
+
+# Material original descargado del sitio antiguo (no se despliega)
+_assets-src/
+
+# Configuración local de herramientas (rutas absolutas de esta máquina)
+.claude/

@@ -1,0 +1,238 @@
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  /* `dvh` respeta la barra de direcciones que aparece y desaparece en movil. */
+  min-height: 100dvh;
+  padding-block: 140px var(--space-10);
+  background-color: var(--graf-950);
+  color: var(--white);
+  overflow: hidden;
+}
+
+.fondo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 62%;
+}
+
+/*
+  Doble velo: uno vertical que asienta el texto sobre la mitad inferior y otro
+  lateral que oscurece el costado izquierdo, donde vive el titular. Asi se
+  garantiza contraste sin apagar la fotografia completa.
+*/
+.velo {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(19,18,21,0.78) 0%, rgba(19,18,21,0.25) 38%, rgba(19,18,21,0.88) 100%),
+    linear-gradient(90deg, rgba(19,18,21,0.80) 0%, rgba(19,18,21,0.18) 62%, transparent 100%);
+}
+
+.contenido {
+  position: relative;
+  z-index: var(--z-base);
+}
+
+.antetitulo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+  color: rgba(255, 255, 255, 0.82);
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+}
+
+/* Cita del isotipo: cuadro cyan con la esquina inferior derecha recortada. */
+.marcaNotch {
+  width: 16px;
+  height: 16px;
+  background-color: var(--brand);
+  clip-path: polygon(0 0, 100% 0, 100% 62%, 62% 62%, 62% 100%, 0 100%);
+}
+
+.titular {
+  max-width: 16ch;
+  font-size: var(--text-5xl);
+  font-weight: var(--weight-black);
+  /* Tracking negativo: a este tamano las letras se leen demasiado separadas. */
+  letter-spacing: -0.045em;
+  line-height: 0.95;
+  color: var(--white);
+}
+
+/* En escritorio cada linea ocupa su renglon; en movil fluyen como texto. */
+.linea { display: block; }
+
+.acento { color: var(--brand); }
+
+.bajada {
+  max-width: 44ch;
+  margin-top: var(--space-6);
+  color: rgba(255, 255, 255, 0.86);
+  font-size: var(--text-lg);
+  line-height: var(--leading-relaxed);
+}
+
+.bajada strong {
+  color: var(--white);
+  font-weight: var(--weight-semibold);
+  white-space: nowrap;
+}
+
+.acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+}
+
+/* --- Cifras --------------------------------------------------------------- */
+.cifras {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+  margin-top: var(--space-10);
+  padding-top: var(--space-6);
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  max-width: 40rem;
+}
+
+.cifra dt {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.cifra dd {
+  margin-top: var(--space-1);
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-tight);
+  line-height: 1;
+  color: var(--white);
+}
+
+/* --- Tarjeta del proyecto insignia ---------------------------------------- */
+.destacado {
+  position: absolute;
+  z-index: var(--z-base);
+  inset-inline-end: var(--gutter);
+  inset-block-end: var(--space-9);
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  width: min(360px, 40vw);
+  padding: var(--space-3);
+  background-color: rgba(19, 18, 21, 0.58);
+  backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  transition:
+    background-color var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out);
+}
+
+.destacado:hover {
+  background-color: rgba(19, 18, 21, 0.74);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-3px);
+}
+
+.destacadoImg {
+  width: 76px;
+  height: 76px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  flex-shrink: 0;
+}
+
+.destacadoTexto {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.destacadoEtiqueta {
+  color: var(--brand);
+  font-family: var(--font-display);
+  font-size: 0.625rem;
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+}
+
+.destacadoNombre {
+  color: var(--white);
+  font-family: var(--font-display);
+  font-size: var(--text-md);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-tight);
+}
+
+.destacadoComuna {
+  color: rgba(255, 255, 255, 0.66);
+  font-size: var(--text-xs);
+}
+
+.destacadoFlecha {
+  margin-inline-start: auto;
+  flex-shrink: 0;
+  color: var(--white);
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+.destacado:hover .destacadoFlecha { transform: translateX(4px); }
+
+/* --- Adaptacion ----------------------------------------------------------- */
+@media (max-width: 1180px) {
+  .destacado { display: none; }
+}
+
+@media (max-width: 860px) {
+  /*
+    El velo lateral existe para asentar el titular sobre el costado izquierdo
+    en pantallas anchas. En una columna angosta cubre la foto entera y la
+    apaga por completo, asi que aqui solo queda el velo vertical.
+  */
+  .velo {
+    background: linear-gradient(
+      180deg,
+      rgba(19, 18, 21, 0.74) 0%,
+      rgba(19, 18, 21, 0.34) 34%,
+      rgba(19, 18, 21, 0.86) 100%
+    );
+  }
+}
+
+@media (max-width: 720px) {
+  .hero {
+    min-height: auto;
+    padding-block: 128px var(--space-9);
+  }
+  /* El texto fluye libre: el quiebre fijo dejaba lineas huerfanas. */
+  .titular { max-width: none; letter-spacing: -0.035em; text-wrap: balance; }
+  .linea { display: inline; }
+  .cifras { gap: var(--space-6) var(--space-7); }
+  .acciones > * { flex: 1 1 100%; }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .destacado {
+    background-color: var(--graf-900);
+    backdrop-filter: none;
+  }
+}

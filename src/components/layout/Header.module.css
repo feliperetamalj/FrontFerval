@@ -1,0 +1,177 @@
+.header {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline: 0;
+  z-index: var(--z-header);
+  transition:
+    background-color var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out),
+    backdrop-filter var(--dur-base) var(--ease-out);
+}
+
+.barra {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-5);
+  min-height: 76px;
+}
+
+/*
+  Estado desplazado: capa translucida con desenfoque. El borde inferior es un
+  hilo casi imperceptible en vez de una linea dura, para que el limite entre
+  cromica y contenido se lea como una transicion de material.
+*/
+.solido {
+  background-color: rgba(250, 250, 251, 0.78);
+  backdrop-filter: blur(18px) saturate(180%);
+  box-shadow: 0 1px 0 rgba(19, 18, 21, 0.07), var(--shadow-sm);
+}
+
+.enlaceLogo {
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+}
+
+/* --- Navegacion de escritorio --------------------------------------------- */
+.navEscritorio {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.enlace {
+  position: relative;
+  padding-block: var(--space-2);
+  color: var(--white);
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  text-decoration: none;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+/* Subrayado que crece desde el centro al pasar el cursor. */
+.enlace::after {
+  content: '';
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline-start: 50%;
+  width: 0;
+  height: 2px;
+  background-color: var(--brand);
+  transform: translateX(-50%);
+  transition: width var(--dur-base) var(--ease-out);
+}
+
+.enlace:hover::after { width: 100%; }
+
+.solido .enlace { color: var(--text-secondary); }
+.solido .enlace:hover { color: var(--text-primary); }
+
+/* --- Acciones ------------------------------------------------------------- */
+.acciones {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.telefono {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  text-decoration: none;
+}
+
+.telefono:hover { color: var(--white); }
+
+.solido .telefono { color: var(--text-secondary); }
+.solido .telefono:hover { color: var(--brand-on-light); }
+
+.botonMenu {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  /* 44x44: superficie tactil minima recomendada. */
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-md);
+  color: var(--white);
+}
+
+.solido .botonMenu,
+.conMenu .botonMenu { color: var(--text-primary); }
+
+/* --- Panel movil ---------------------------------------------------------- */
+.panelMovil {
+  display: none;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding: var(--space-5) var(--gutter) var(--space-8);
+  background-color: var(--surface-raised);
+  border-top: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-lg);
+  max-height: calc(100dvh - 76px);
+  overflow-y: auto;
+}
+
+.enlaceMovil {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: var(--space-4);
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-semibold);
+  text-decoration: none;
+}
+
+.enlaceMovil:hover { color: var(--brand-on-light); }
+
+.pieMovil {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.telefonoMovil {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding-block: var(--space-3);
+  color: var(--text-secondary);
+  font-weight: var(--weight-medium);
+  text-decoration: none;
+}
+
+/* --- Puntos de quiebre ---------------------------------------------------- */
+@media (max-width: 1020px) {
+  .navEscritorio { display: none; }
+  .botonMenu { display: inline-flex; }
+  .panelMovil { display: flex; }
+  .conMenu {
+    background-color: var(--surface-raised);
+    backdrop-filter: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .telefono { display: none; }
+  .ctaEscritorio { display: none; }
+  .barra { min-height: 68px; }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .solido {
+    background-color: var(--surface-page);
+    backdrop-filter: none;
+  }
+}

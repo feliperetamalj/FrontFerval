@@ -1,0 +1,189 @@
+.tarjeta {
+  position: relative;
+  background-color: var(--surface-raised);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition:
+    transform var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out);
+}
+
+.tarjeta:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-default);
+  box-shadow: var(--shadow-lg);
+}
+
+.enlace {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+
+/* --- Imagen --------------------------------------------------------------- */
+.media {
+  position: relative;
+  /* Se reserva la proporcion antes de cargar: evita el salto de layout (CLS). */
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background-color: var(--graf-100);
+}
+
+.imagen {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+
+.tarjeta:hover .imagen { transform: scale(1.04); }
+
+.insignias {
+  position: absolute;
+  inset-block-start: var(--space-3);
+  inset-inline-start: var(--space-3);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* Logo del proyecto sobre un degradado que garantiza su legibilidad. */
+.logoProyecto {
+  position: absolute;
+  inset-block-end: var(--space-4);
+  inset-inline-end: var(--space-4);
+  width: auto;
+  max-width: 108px;
+  max-height: 40px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.55));
+}
+
+/* --- Cuerpo --------------------------------------------------------------- */
+.cuerpo {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: var(--space-4);
+  padding: var(--space-5);
+}
+
+.nombre {
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-tight);
+  line-height: 1.15;
+}
+
+.ubicacion {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+}
+
+.ubicacion svg { color: var(--brand-on-light); flex-shrink: 0; }
+
+.separador { color: var(--border-strong); }
+
+.resumen {
+  flex: 1;
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+  /* Recorta a tres lineas para que todas las tarjetas midan igual. */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* --- Ficha tecnica --------------------------------------------------------
+   Dos filas en vez de una: el precio manda arriba y los tres atributos van
+   debajo en linea. En una sola fila los rangos largos ("150-308 m²") partian
+   en tres lineas y descuadraban la tarjeta.
+   ------------------------------------------------------------------------- */
+.especificaciones {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.precio {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.precio dt {
+  color: var(--text-muted);
+  font-size: 0.6875rem;
+  font-weight: var(--weight-medium);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.precio dd {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-tight);
+  color: var(--text-primary);
+  line-height: 1.1;
+}
+
+.specs {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.spec {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  /* Nunca partir un rango a mitad de camino. */
+  white-space: nowrap;
+}
+
+.spec + .spec {
+  padding-inline-start: var(--space-4);
+  border-inline-start: 1px solid var(--border-subtle);
+}
+
+.spec dt { display: flex; color: var(--text-muted); }
+
+/* --- Llamado -------------------------------------------------------------- */
+.accion {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--brand-on-light);
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+}
+
+.accion svg { transition: transform var(--dur-base) var(--ease-out); }
+.tarjeta:hover .accion svg { transform: translateX(4px); }
+
+/* --- Formato ancho (primera tarjeta del portafolio) ----------------------- */
+@media (min-width: 900px) {
+  .ancha { grid-column: span 2; }
+  .ancha .enlace { flex-direction: row; }
+  .ancha .media { flex: 1 1 55%; aspect-ratio: auto; }
+  .ancha .cuerpo { flex: 1 1 45%; justify-content: center; padding: var(--space-8); }
+  .ancha .nombre { font-size: var(--text-2xl); }
+  .ancha .resumen { -webkit-line-clamp: 4; font-size: var(--text-base); }
+}
