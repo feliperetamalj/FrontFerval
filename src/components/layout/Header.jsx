@@ -46,8 +46,8 @@ export function Header() {
       ].filter(Boolean).join(' ')}
     >
       <Contenedor className={estilos.barra}>
-        <Link to="/" className={estilos.enlaceLogo} aria-label="Ferval · ir al inicio">
-          <Logo tono={desplazado || !enPortada ? 'oscuro' : 'claro'} />
+        <Link to="/" className={estilos.enlaceLogo} aria-label="Inmobiliaria Ferval · ir al inicio">
+          <Logo tamano={52} />
         </Link>
 
         <nav className={estilos.navEscritorio} aria-label="Navegación principal">

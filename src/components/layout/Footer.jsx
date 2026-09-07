@@ -27,7 +27,7 @@ export function Footer() {
 
         <div className={estilos.rejilla}>
           <div className={estilos.columnaMarca}>
-            <Logo tono="claro" />
+            <Logo tamano={92} titulo={EMPRESA.nombreLegal} />
             <p className={estilos.descripcion}>
               {EMPRESA.nombreLegal}. Diseñamos, construimos y entregamos viviendas
               en la Región del Maule y zona centro-sur de Chile.
@@ -93,7 +93,11 @@ export function Footer() {
         </div>
 
         <div className={estilos.legal}>
-          <p>© {anio} {EMPRESA.nombreLegal}. Todos los derechos reservados.</p>
+          <p className={estilos.creditos}>
+            <span>© {anio} {EMPRESA.nombreLegal}. Todos los derechos reservados.</span>
+            <span aria-hidden="true" className={estilos.separador}>·</span>
+            <span>RB Software Solutions © {anio}</span>
+          </p>
           <p className={estilos.aviso}>
             Las imágenes son referenciales. Precios expresados en UF, sujetos a
             disponibilidad y a las condiciones vigentes de cada proyecto.

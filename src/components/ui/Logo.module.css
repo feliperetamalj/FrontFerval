@@ -1,49 +1,10 @@
+/*
+  El logotipo es un cuadrado macizo: no hereda el color del contexto ni cambia
+  entre fondo claro y oscuro, porque el marco cyan ya lo separa de cualquier
+  superficie. Solo necesita no deformarse dentro de contenedores flexibles.
+*/
 .logo {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-3);
-  text-decoration: none;
-  line-height: 1;
-}
-
-.marca {
+  display: block;
   flex-shrink: 0;
   border-radius: 2px;
-}
-
-.texto {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-
-/* El nombre replica el peso y el apretado del wordmark original. */
-.nombre {
-  font-family: var(--font-display);
-  font-size: 1.375rem;
-  font-weight: var(--weight-black);
-  letter-spacing: -0.035em;
-  text-transform: uppercase;
-  line-height: 0.95;
-}
-
-/* Descriptor: pequeno, muy espaciado, jerarquia claramente secundaria. */
-.descriptor {
-  font-family: var(--font-body);
-  font-size: 0.5625rem;
-  font-weight: var(--weight-medium);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.oscuro .nombre { color: var(--text-primary); }
-.oscuro .descriptor { color: var(--text-muted); }
-
-.claro .nombre { color: var(--white); }
-.claro .descriptor { color: rgba(255, 255, 255, 0.62); }
-
-@media (max-width: 480px) {
-  .nombre { font-size: 1.25rem; }
-  .descriptor { display: none; }
 }

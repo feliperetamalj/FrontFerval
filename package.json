@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "Landing page de Inmobiliaria y Constructora Ferval - Talca, Region del Maule",
+  "description": "Landing page de Inmobiliaria Ferval - Talca, Region del Maule",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

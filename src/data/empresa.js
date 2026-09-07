@@ -1,5 +1,5 @@
 /**
- * Datos institucionales de Inmobiliaria y Constructora Ferval.
+ * Datos institucionales de Inmobiliaria Ferval.
  *
  * Fuente: fervali.cl (pie de pagina, pagina de contacto y fichas de proyecto).
  * Centralizado aqui para que el contenido se edite sin tocar componentes.
@@ -7,8 +7,7 @@
 
 export const EMPRESA = {
   nombre: 'Ferval',
-  nombreLegal: 'Inmobiliaria y Constructora Ferval',
-  descriptor: 'Inmobiliaria y Constructora',
+  nombreLegal: 'Inmobiliaria Ferval',
   ciudad: 'Talca',
   region: 'Región del Maule',
 
@@ -48,7 +47,7 @@ export const EMPRESA = {
 export const PILARES = [
   {
     id: 'integracion',
-    titulo: 'Inmobiliaria y constructora',
+    titulo: 'Construimos lo que vendemos',
     texto:
       'Compramos el terreno, diseñamos, construimos y vendemos. Al no depender de terceros, controlamos el plazo, el costo y la terminación de cada vivienda.',
     nota: 'Un solo responsable de principio a fin',

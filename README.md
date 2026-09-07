@@ -1,6 +1,6 @@
 # Ferval · Landing Page
 
-Sitio de **Inmobiliaria y Constructora Ferval** (Talca, Región del Maule).
+Sitio de **Inmobiliaria Ferval** (Talca, Región del Maule).
 Rediseño completo en React + CSS, pensado para desplegarse en Vercel.
 
 ---
@@ -79,9 +79,15 @@ sueltos en el CSS de componentes.
 isotipo) e Inter para texto y cifras. El interletrado es negativo en tamaños
 grandes y neutro en el cuerpo.
 
-**Isotipo.** El logo es un cuadrado grafito con marco cyan y una muesca en la
-esquina inferior derecha. Esa muesca se reutiliza como recurso gráfico en
-tarjetas, etiquetas de sección y en el recorte de la fotografía de "Nosotros".
+**Logotipo.** La cabecera y el pie usan el logotipo oficial completo: el
+cuadrado grafito con marco cyan, la muesca en la esquina inferior derecha y el
+nombre "INMOBILIARIA FERVAL" dentro. El nombre no es texto compuesto sino el
+contorno vectorial del arte original, en `src/components/ui/nombreTrazado.js`.
+
+`Logo` es el logotipo completo e `Isotipo` la versión sin nombre, reservada
+para tamaños donde el texto no alcanzaría a leerse (el favicon). La muesca se
+reutiliza como recurso gráfico en tarjetas, etiquetas de sección y en el
+recorte de la fotografía de "Nosotros".
 
 ---
 

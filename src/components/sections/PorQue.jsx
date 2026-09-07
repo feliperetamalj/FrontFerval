@@ -18,7 +18,7 @@ export function PorQue() {
         <EncabezadoSeccion
           etiqueta="Por qué Ferval"
           titulo={<>No solo vendemos casas.<br />Las construimos.</>}
-          bajada="Somos inmobiliaria y constructora a la vez. Eso cambia quién responde cuando algo tiene que salir bien."
+          bajada="La misma empresa compra el terreno, levanta la obra y te entrega las llaves. Eso cambia quién responde cuando algo tiene que salir bien."
         />
 
         <div className={estilos.rejilla}>

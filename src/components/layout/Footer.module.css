@@ -119,6 +119,16 @@
   font-size: var(--text-xs);
 }
 
+/* Los dos creditos se separan con un punto medio y bajan juntos si no caben. */
+.creditos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.separador { color: var(--graf-700); }
+
 .aviso { max-width: 34rem; text-align: right; }
 
 @media (max-width: 1020px) {

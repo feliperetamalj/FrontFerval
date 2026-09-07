@@ -8,6 +8,11 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
 
+  server: {
+    // Respeta el puerto que asigne el entorno; si no hay ninguno, el de Vite.
+    port: Number(process.env.PORT) || 5173,
+  },
+
   build: {
     // Los assets menores a 4 KB se incrustan como data URI y ahorran peticiones.
     assetsInlineLimit: 4096,

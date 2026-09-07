@@ -8,7 +8,6 @@
  * el logotipo o la fotografia de portada.
  */
 
-import { readFile, writeFile } from 'node:fs/promises';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
@@ -99,8 +98,11 @@ await sharp(fondo)
 /* 2 · Icono para iOS                                                        */
 /* ------------------------------------------------------------------------ */
 
-const favicon = await readFile(join(RAIZ, 'public/favicon.svg'));
-await sharp(favicon, { density: 400 })
+/* A 180 px el nombre dentro del logotipo si se lee, asi que el icono usa el
+   arte oficial completo y no el isotipo reducido del favicon. El `extract`
+   descarta el margen transparente de 12 px del archivo original. */
+await sharp(join(RAIZ, 'src/assets/brand/logo-ferval.png'))
+  .extract({ left: 12, top: 12, width: 476, height: 476 })
   .resize(180, 180)
   .png()
   .toFile(join(RAIZ, 'public/apple-touch-icon.png'));
