@@ -13,6 +13,10 @@ export default defineConfig({
     port: Number(process.env.PORT) || 5173,
   },
 
+  preview: {
+    port: Number(process.env.PORT) || 4173,
+  },
+
   build: {
     // Los assets menores a 4 KB se incrustan como data URI y ahorran peticiones.
     assetsInlineLimit: 4096,

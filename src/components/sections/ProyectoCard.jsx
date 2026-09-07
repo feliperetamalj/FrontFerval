@@ -17,6 +17,15 @@ import estilos from './ProyectoCard.module.css';
  * @param {import('../../data/proyectos.js').PROYECTOS[number]} props.proyecto
  * @param {'normal'|'ancha'} [props.formato='normal']
  */
+/*
+ * Ancho del hueco que ocupa la imagen, para que el navegador elija el escalon
+ * del `srcset` antes de conocer el layout. La rejilla es
+ * `auto-fill minmax(320px, 1fr)` dentro de un contenedor de 1280 px: en
+ * escritorio caben tres columnas de ~413 px, y la tarjeta destacada ocupa dos.
+ */
+const SIZES_NORMAL = '(min-width: 1360px) 413px, (min-width: 900px) 32vw, (min-width: 561px) 48vw, 94vw';
+const SIZES_ANCHA = '(min-width: 1360px) 846px, (min-width: 900px) 65vw, (min-width: 561px) 48vw, 94vw';
+
 export function ProyectoCard({ proyecto, formato = 'normal' }) {
   const estado = ESTADOS[proyecto.estado];
 
@@ -26,6 +35,8 @@ export function ProyectoCard({ proyecto, formato = 'normal' }) {
         <div className={estilos.media}>
           <img
             src={proyecto.imagenes.hero}
+            srcSet={proyecto.imagenes.heroSrcSet}
+            sizes={formato === 'ancha' ? SIZES_ANCHA : SIZES_NORMAL}
             alt={`${proyecto.nombre}, ${proyecto.comuna}`}
             className={estilos.imagen}
             loading="lazy"

@@ -51,7 +51,14 @@ export function ProyectoDetalle() {
       {/* Portada                                                           */}
       {/* ---------------------------------------------------------------- */}
       <header className={`${estilos.portada} on-dark`}>
-        <img src={proyecto.imagenes.hero} alt="" className={estilos.portadaImg} fetchpriority="high" />
+        <img
+          src={proyecto.imagenes.hero}
+          srcSet={proyecto.imagenes.heroSrcSet}
+          sizes="100vw"
+          alt=""
+          className={estilos.portadaImg}
+          fetchpriority="high"
+        />
         <div className={estilos.portadaVelo} aria-hidden="true" />
 
         <Contenedor className={estilos.portadaContenido}>

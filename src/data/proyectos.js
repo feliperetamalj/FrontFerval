@@ -27,6 +27,25 @@ const ARCHIVOS = import.meta.glob('../assets/proyectos/**/*.webp', {
  */
 const img = (slug, nombre) => ARCHIVOS[`../assets/proyectos/${slug}/${nombre}.webp`];
 
+/**
+ * `srcset` del hero de un proyecto.
+ *
+ * Las tarjetas del portafolio pintan el hero en una celda de entre 320 y
+ * 850 px; pedir siempre el archivo de 1920 hacia que las mas pesadas se
+ * quedaran en gris hasta terminar de descargar. Con el `srcset` el navegador
+ * elige el escalon que corresponde al hueco y a la densidad de la pantalla.
+ *
+ * Las variantes las genera `npm run imagenes`; el ultimo escalon es el propio
+ * `hero.webp`, que ademas sigue siendo la portada de la ficha de proyecto.
+ */
+const ANCHOS_HERO = [480, 960, 1440];
+
+const heroSrcSet = (slug) =>
+  [...ANCHOS_HERO.map((ancho) => [img(slug, `hero-${ancho}`), ancho]), [img(slug, 'hero'), 1920]]
+    .filter(([url]) => url)
+    .map(([url, ancho]) => `${url} ${ancho}w`)
+    .join(', ');
+
 /** Construye el arreglo de galeria g1..gN de un proyecto. */
 const galeria = (slug, cantidad) =>
   Array.from({ length: cantidad }, (_, i) => img(slug, `g${i + 1}`)).filter(Boolean);
@@ -138,6 +157,7 @@ export const PROYECTOS = [
     mapa: 'https://www.google.com/maps/place/Reserva+Las+Rastras/@-35.4185281,-71.5902614,919m',
     imagenes: {
       hero: img('reserva-las-rastras', 'hero'),
+      heroSrcSet: heroSrcSet('reserva-las-rastras'),
       logo: img('reserva-las-rastras', 'logo'),
       galeria: galeria('reserva-las-rastras', 9),
     },
@@ -194,6 +214,7 @@ export const PROYECTOS = [
     mapa: null,
     imagenes: {
       hero: img('gabriela-mistral', 'hero'),
+      heroSrcSet: heroSrcSet('gabriela-mistral'),
       logo: img('gabriela-mistral', 'logo'),
       galeria: galeria('gabriela-mistral', 4),
     },
@@ -241,6 +262,7 @@ export const PROYECTOS = [
     mapa: 'https://maps.app.goo.gl/EufJ4MQmER9hitMr8',
     imagenes: {
       hero: img('parque-poniente-v', 'hero'),
+      heroSrcSet: heroSrcSet('parque-poniente-v'),
       logo: img('parque-poniente-v', 'logo'),
       galeria: galeria('parque-poniente-v', 8),
     },
@@ -288,6 +310,7 @@ export const PROYECTOS = [
     mapa: null,
     imagenes: {
       hero: img('altos-de-yungay', 'hero'),
+      heroSrcSet: heroSrcSet('altos-de-yungay'),
       logo: img('altos-de-yungay', 'logo'),
       galeria: galeria('altos-de-yungay', 4),
     },
@@ -333,6 +356,7 @@ export const PROYECTOS = [
     mapa: 'https://www.google.com/maps/place/-35.451663,-71.638973',
     imagenes: {
       hero: img('parque-oriente', 'hero'),
+      heroSrcSet: heroSrcSet('parque-oriente'),
       logo: img('parque-oriente', 'logo'),
       galeria: galeria('parque-oriente', 5),
     },
@@ -376,6 +400,7 @@ export const PROYECTOS = [
     mapa: 'https://www.google.com/maps/place/Villa+Valles+de+Linares/@-35.8606007,-71.5788442,914m',
     imagenes: {
       hero: img('valles-de-linares', 'hero'),
+      heroSrcSet: heroSrcSet('valles-de-linares'),
       logo: img('valles-de-linares', 'logo'),
       galeria: galeria('valles-de-linares', 4),
     },
@@ -422,6 +447,7 @@ export const PROYECTOS = [
     mapa: 'https://www.google.com/maps/place/-35.4452261,-71.622771',
     imagenes: {
       hero: img('rebeca-matte', 'hero'),
+      heroSrcSet: heroSrcSet('rebeca-matte'),
       logo: img('rebeca-matte', 'logo'),
       galeria: galeria('rebeca-matte', 4),
     },
@@ -463,6 +489,7 @@ export const PROYECTOS = [
     mapa: null,
     imagenes: {
       hero: img('eloisa-diaz', 'hero'),
+      heroSrcSet: heroSrcSet('eloisa-diaz'),
       logo: img('eloisa-diaz', 'logo'),
       galeria: galeria('eloisa-diaz', 4),
     },
@@ -508,6 +535,7 @@ export const PROYECTOS = [
     mapa: 'https://www.google.com/maps/place/-35.597671,-71.712243',
     imagenes: {
       hero: img('margot-duhalde', 'hero'),
+      heroSrcSet: heroSrcSet('margot-duhalde'),
       logo: img('margot-duhalde', 'logo'),
       galeria: galeria('margot-duhalde', 4),
     },

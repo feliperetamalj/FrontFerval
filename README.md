@@ -99,8 +99,12 @@ recorte de la fotografía de "Nosotros".
 
 1. Crea `src/assets/proyectos/<slug>/` con `hero.jpg`, `logo.png` y `g1.jpg`,
    `g2.jpg`… (los nombres importan).
-2. Corre `npm run imagenes` para convertirlos a WebP.
-3. Agrega el objeto del proyecto al arreglo `PROYECTOS`.
+2. Corre `npm run imagenes`. Convierte todo a WebP y genera las variantes
+   `hero-480`, `hero-960` y `hero-1440` que alimentan el `srcset` de las
+   tarjetas: sin ellas la tarjeta bajaría el archivo de 1920 px para pintarlo
+   en un hueco de 400.
+3. Agrega el objeto del proyecto al arreglo `PROYECTOS`, con su
+   `heroSrcSet: heroSrcSet('<slug>')` junto al `hero`.
 
 El resto se actualiza solo: portafolio, filtros, comunas, cifras del hero,
 selector del formulario, pie de página y `sitemap.xml`.
@@ -137,8 +141,10 @@ propiedad que no reconozca, incluida `comment`—, así que la explicación va a
 rutas las resuelve React Router en el navegador. Sin la reescritura, entrar
 directo a `/proyecto/rebeca-matte` o recargar esa página devuelve 404, porque
 Vercel busca un archivo con ese nombre y no existe. La expresión excluye
-`assets/`, el favicon, la imagen Open Graph, `robots.txt` y `sitemap.xml`:
-esos sí son archivos reales y deben servirse tal cual, no como `index.html`.
+`assets/`, el favicon, el icono de iOS, la imagen Open Graph, `robots.txt` y
+`sitemap.xml`: esos sí son archivos reales y deben servirse tal cual, no como
+`index.html`. Al agregar un archivo suelto en `public/` hay que sumarlo a esa
+lista, o se servirá el HTML de la portada en su lugar.
 
 **`headers` de `/assets/*`** — Vite pone un hash en el nombre de cada archivo
 compilado (`index-BpaivkaF.css`). Si el contenido cambia, cambia el nombre, así

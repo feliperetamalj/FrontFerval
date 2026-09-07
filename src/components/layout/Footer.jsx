@@ -93,10 +93,9 @@ export function Footer() {
         </div>
 
         <div className={estilos.legal}>
-          <p className={estilos.creditos}>
-            <span>© {anio} {EMPRESA.nombreLegal}. Todos los derechos reservados.</span>
-            <span aria-hidden="true" className={estilos.separador}>·</span>
-            <span>RB Software Solutions © {anio}</span>
+          <p>
+            © {anio} {EMPRESA.nombreLegal} - © {anio} RB Software Solutions.
+            Todos los Derechos Reservados.
           </p>
           <p className={estilos.aviso}>
             Las imágenes son referenciales. Precios expresados en UF, sujetos a

@@ -93,7 +93,14 @@ export function Hero() {
 
       {/* Acceso directo al proyecto insignia, anclado a la esquina. */}
       <Link to={`/proyecto/${PROYECTO_DESTACADO.slug}`} className={estilos.destacado}>
-        <img src={PROYECTO_DESTACADO.imagenes.hero} alt="" className={estilos.destacadoImg} loading="lazy" />
+        <img
+          src={PROYECTO_DESTACADO.imagenes.hero}
+          srcSet={PROYECTO_DESTACADO.imagenes.heroSrcSet}
+          sizes="72px"
+          alt=""
+          className={estilos.destacadoImg}
+          loading="lazy"
+        />
         <span className={estilos.destacadoTexto}>
           <span className={estilos.destacadoEtiqueta}>Proyecto insignia</span>
           <span className={estilos.destacadoNombre}>{PROYECTO_DESTACADO.nombre}</span>

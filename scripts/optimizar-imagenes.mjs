@@ -9,6 +9,10 @@
  *
  * Lee de   src/assets/proyectos/<slug>/*.{jpg,png}
  * Escribe  src/assets/proyectos/<slug>/*.webp  y borra el original.
+ *
+ * Despues genera las variantes reducidas de cada `hero.webp`, que son las que
+ * consumen las tarjetas del portafolio. Es idempotente: se puede volver a
+ * correr sobre un arbol ya convertido.
  */
 
 import { readdir, stat, unlink } from 'node:fs/promises';
@@ -70,9 +74,51 @@ for await (const ruta of recorrer(RAIZ)) {
   convertidas += 1;
 }
 
+/* ------------------------------------------------------------------------ */
+/* Segunda pasada · variantes de `hero` para las tarjetas                    */
+/* ------------------------------------------------------------------------ */
+
+/**
+ * Las tarjetas del portafolio muestran el hero en una celda de entre 320 y
+ * 850 px, pero `hero.webp` mide 1920: la portada bajaba 2,3 MB y las tarjetas
+ * mas pesadas se quedaban en gris hasta terminar la descarga. Estas variantes
+ * alimentan el `srcset`, de modo que el navegador pida solo lo que va a pintar.
+ *
+ * 1920 no se genera aqui: es el propio `hero.webp`, que sigue siendo el ultimo
+ * escalon del `srcset` y la portada de la ficha de proyecto.
+ */
+const ANCHOS_TARJETA = [480, 960, 1440];
+
+let variantes = 0;
+let bytesVariantes = 0;
+
+for await (const ruta of recorrer(RAIZ)) {
+  if (basename(ruta) !== 'hero.webp') continue;
+
+  const meta = await sharp(ruta).metadata();
+
+  for (const ancho of ANCHOS_TARJETA) {
+    // Sin ampliar: si el original ya es mas chico, esa variante no existe y el
+    // `srcset` simplemente la omite.
+    if (meta.width <= ancho) continue;
+
+    const destino = join(dirname(ruta), `hero-${ancho}.webp`);
+    await sharp(ruta)
+      .resize({ width: ancho })
+      .webp({ quality: PERFILES.hero.calidad, effort: 6 })
+      .toFile(destino);
+
+    bytesVariantes += (await stat(destino)).size;
+    variantes += 1;
+  }
+}
+
 const mb = (b) => (b / 1024 / 1024).toFixed(1);
 const ahorro = entradaTotal ? Math.round((1 - salidaTotal / entradaTotal) * 100) : 0;
 
-console.log(
-  `${convertidas} imagenes · ${mb(entradaTotal)} MB -> ${mb(salidaTotal)} MB (-${ahorro}%)`,
-);
+if (convertidas) {
+  console.log(
+    `${convertidas} imagenes · ${mb(entradaTotal)} MB -> ${mb(salidaTotal)} MB (-${ahorro}%)`,
+  );
+}
+console.log(`${variantes} variantes de tarjeta · ${mb(bytesVariantes)} MB`);
