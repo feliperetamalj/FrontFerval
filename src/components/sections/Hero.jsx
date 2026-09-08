@@ -37,11 +37,11 @@ export function Hero() {
 
         {/*
           Cada linea es un span en bloque, no un <br>. Ocultar un <br> en movil
-          elimina tambien el espacio entre palabras ("el lugardonde"); con spans
+          elimina tambien el espacio entre palabras ("el hogardonde"); con spans
           basta cambiar `display` y el espacio entre ellos se conserva.
         */}
         <h1 className={estilos.titular}>
-          <span className={estilos.linea}>Construimos el lugar</span>{' '}
+          <span className={estilos.linea}>Construimos el hogar</span>{' '}
           <span className={estilos.linea}>
             donde parte<span className={estilos.acento}> tu historia.</span>
           </span>

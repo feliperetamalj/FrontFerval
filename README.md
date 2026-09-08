@@ -117,6 +117,15 @@ archivo simplemente no lo muestra.
 El resto se actualiza solo: portafolio, filtros, comunas, cifras del hero,
 selector del formulario, pie de página y `sitemap.xml`.
 
+**Proyectos que aún no salen a la venta** → arreglo `PROXIMOS` de
+`src/data/proyectos.js`. Alimentan la sección "Próximos proyectos" de la
+portada y solo llevan nombre, comuna, región, número de viviendas y estado
+(`en-construccion` o `proximamente`). Salen del control interno de proyectos
+PIS, del que se publica únicamente eso: los códigos, el profesional a cargo,
+los porcentajes de avance y el estado de ventas son información de gestión y
+no deben llegar al sitio. Cuando uno abre su venta, se mueve a `PROYECTOS` con
+su ficha completa y se borra de `PROXIMOS`.
+
 ---
 
 ## Formulario de contacto

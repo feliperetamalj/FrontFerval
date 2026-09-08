@@ -574,6 +574,40 @@ export const PROYECTOS = [
   },
 ];
 
+/**
+ * Proyectos que todavia no salen a la venta.
+ *
+ * Salen del control interno de proyectos PIS (Programa de Integracion Social)
+ * de la empresa. De esa planilla aqui solo se publica lo que le sirve a quien
+ * busca vivienda: nombre, comuna y numero de viviendas. Queda deliberadamente
+ * fuera todo lo operativo —codigo interno, profesional a cargo, porcentajes de
+ * avance, estado de ventas y tramitacion del PIS—, que es informacion de
+ * gestion y no de venta.
+ *
+ * `estado`:
+ *   · 'en-construccion' .... la obra ya esta levantada o en curso
+ *   · 'proximamente' ....... aprobado, aun sin construccion
+ *
+ * Al abrir la venta de uno de estos, se mueve al arreglo PROYECTOS con su
+ * ficha completa y se borra de aqui.
+ */
+export const PROXIMOS = [
+  { nombre: 'Marta Colvin', comuna: 'Talca', region: 'Región del Maule', viviendas: 140, estado: 'en-construccion' },
+  { nombre: 'Margot Duhalde II', comuna: 'San Javier', region: 'Región del Maule', viviendas: 205, estado: 'en-construccion' },
+  { nombre: 'Lily Garafulic', comuna: 'Talca', region: 'Región del Maule', viviendas: 140, estado: 'en-construccion' },
+  { nombre: 'Plaza Norte', comuna: 'Teno', region: 'Región del Maule', viviendas: 196, estado: 'proximamente' },
+  { nombre: 'Viña Alameda', comuna: 'Villa Alegre', region: 'Región del Maule', viviendas: 296, estado: 'proximamente' },
+  { nombre: 'Condominio Nueva Era I', comuna: 'Quillota', region: 'Región de Valparaíso', viviendas: 100, estado: 'proximamente' },
+  { nombre: 'Condominio Nueva Era II', comuna: 'Quillota', region: 'Región de Valparaíso', viviendas: 60, estado: 'proximamente' },
+  { nombre: 'Loteo Altos de Esmeralda', comuna: 'Talca', region: 'Región del Maule', viviendas: 206, estado: 'proximamente' },
+];
+
+/** Etiqueta y tono visual de cada estado de `PROXIMOS`. */
+export const ESTADOS_PROXIMOS = {
+  'en-construccion': { etiqueta: 'En construcción', tono: 'aviso' },
+  proximamente: { etiqueta: 'Próximamente', tono: 'marca' },
+};
+
 /* ==========================================================================
    Selectores derivados
    Se calculan una vez al importar el modulo, no en cada render.
