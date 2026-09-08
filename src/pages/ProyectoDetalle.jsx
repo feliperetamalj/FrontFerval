@@ -1,8 +1,8 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 
 import { Boton, Contenedor, Etiqueta, Icono, Reveal, Seccion } from '../components/ui/index.js';
-import { Galeria, ProyectoCard } from '../components/sections/index.js';
+import { Galeria, ProyectoCard, VisorPlano } from '../components/sections/index.js';
 import { proyectoPorSlug, PROYECTOS, ESTADOS } from '../data/proyectos.js';
 import { EMPRESA } from '../data/empresa.js';
 import {
@@ -27,6 +27,10 @@ import estilos from './ProyectoDetalle.module.css';
 export function ProyectoDetalle() {
   const { slug } = useParams();
   const proyecto = proyectoPorSlug(slug);
+
+  // Un unico visor para toda la seccion: guarda el modelo cuyo plano se mira,
+  // en vez de montar un modal por tarjeta.
+  const [modeloEnPlano, setModeloEnPlano] = useState(null);
 
   useEffect(() => {
     if (proyecto) {
@@ -261,19 +265,31 @@ export function ProyectoDetalle() {
                       <span className={estilos.modeloPrecioEtiqueta}>Desde</span>
                       <span className="tabular">{formatearUF(modelo.uf)}</span>
                     </p>
-                    <Boton
-                      como="a"
-                      href={enlaceWhatsApp(
-                        whatsapp,
-                        `Hola, me interesa el modelo ${modelo.nombre} de ${proyecto.nombre} en ${proyecto.comuna}.`,
+                    <div className={estilos.modeloAcciones}>
+                      {modelo.planos?.length > 0 && (
+                        <Boton
+                          variante="fantasma"
+                          tamano="sm"
+                          icono="plano"
+                          onClick={() => setModeloEnPlano(modelo)}
+                        >
+                          Ver plano
+                        </Boton>
                       )}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      variante="contorno"
-                      tamano="sm"
-                    >
-                      Consultar
-                    </Boton>
+                      <Boton
+                        como="a"
+                        href={enlaceWhatsApp(
+                          whatsapp,
+                          `Hola, me interesa el modelo ${modelo.nombre} de ${proyecto.nombre} en ${proyecto.comuna}.`,
+                        )}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        variante="contorno"
+                        tamano="sm"
+                      >
+                        Consultar
+                      </Boton>
+                    </div>
                   </footer>
                 </article>
               </Reveal>
@@ -358,6 +374,14 @@ export function ProyectoDetalle() {
           </div>
         </Contenedor>
       </Seccion>
+
+      {modeloEnPlano && (
+        <VisorPlano
+          modelo={modeloEnPlano}
+          nombreProyecto={proyecto.nombre}
+          onCerrar={() => setModeloEnPlano(null)}
+        />
+      )}
     </article>
   );
 }

@@ -8,3 +8,4 @@ export { Nosotros } from './Nosotros.jsx';
 export { Contacto } from './Contacto.jsx';
 export { ProyectoCard } from './ProyectoCard.jsx';
 export { Galeria } from './Galeria.jsx';
+export { VisorPlano } from './VisorPlano.jsx';

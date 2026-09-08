@@ -106,6 +106,14 @@ recorte de la fotografía de "Nosotros".
 3. Agrega el objeto del proyecto al arreglo `PROYECTOS`, con su
    `heroSrcSet: heroSrcSet('<slug>')` junto al `hero`.
 
+**Agregar el plano de un modelo.** Deja el archivo en la carpeta del proyecto
+como `plano-<base>.jpg` si es planta única (departamentos) o
+`plano-<base>-n1.jpg` y `-n2` si son dos pisos (casas), corre `npm run imagenes`
+y declara `planos: planos('<slug>', '<base>')` —con un tercer argumento igual al
+número de niveles cuando hay más de uno— en el modelo que corresponda. El botón
+"Ver plano" aparece solo si el modelo tiene planos, así que un modelo sin
+archivo simplemente no lo muestra.
+
 El resto se actualiza solo: portafolio, filtros, comunas, cifras del hero,
 selector del formulario, pie de página y `sitemap.xml`.
 

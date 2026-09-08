@@ -27,10 +27,16 @@ const PERFILES = {
   hero: { ancho: 1920, calidad: 74 },
   galeria: { ancho: 1280, calidad: 72 },
   logo: { ancho: 360, calidad: 88 },
+  // Los planos se miran de cerca y con zoom: llevan lineas finas y rotulos
+  // pequenos ("Planta nivel 1", "Acceso") que se deshacen si se comprimen
+  // como una fotografia. No se reescalan hacia arriba, asi que cada plano
+  // conserva la resolucion que tenga el original.
+  plano: { ancho: 1600, calidad: 88 },
 };
 
 /** Deduce el perfil a partir del nombre del archivo. */
 function perfilDe(nombre) {
+  if (nombre.startsWith('plano')) return PERFILES.plano;
   if (nombre.startsWith('hero') || nombre.startsWith('nosotros') ||
       nombre.startsWith('subsidio') || nombre.startsWith('maule')) return PERFILES.hero;
   if (nombre.startsWith('logo')) return PERFILES.logo;

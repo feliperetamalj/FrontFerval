@@ -45,6 +45,13 @@ const TRAZOS = {
     </>
   ),
   casa: <path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-9.5Z" />,
+  // Planta arquitectonica: perimetro, un tabique y el vano de acceso.
+  plano: (
+    <>
+      <path d="M3 3h18v18H3z" />
+      <path d="M10 3v8M10 15v6M3 11h7M14 21v-6M14 15h7" />
+    </>
+  ),
   edificio: (
     <>
       <path d="M4 21V4a1 1 0 0 1 1-1h9a1 1 0 0 1 1 1v17" />

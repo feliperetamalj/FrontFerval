@@ -46,6 +46,27 @@ const heroSrcSet = (slug) =>
     .map(([url, ancho]) => `${url} ${ancho}w`)
     .join(', ');
 
+/**
+ * Planos de un modelo, en el orden en que se recorren.
+ *
+ * Los departamentos tienen una sola planta (`plano-<base>.webp`); las casas
+ * traen una por piso (`plano-<base>-n1.webp`, `-n2`). `niveles` en 0 significa
+ * planta unica. Si un archivo no existe, el modelo simplemente se queda sin
+ * ese plano en vez de romper la ficha.
+ *
+ * Los originales son los que publica fervali.cl en cada ficha de proyecto.
+ */
+const planos = (slug, base, niveles = 0) => {
+  const uno = (nombre, etiqueta) => {
+    const src = img(slug, nombre);
+    return src ? { src, etiqueta } : null;
+  };
+  const lista = niveles
+    ? Array.from({ length: niveles }, (_, i) => uno(`plano-${base}-n${i + 1}`, `Planta nivel ${i + 1}`))
+    : [uno(`plano-${base}`, 'Planta')];
+  return lista.filter(Boolean);
+};
+
 /** Construye el arreglo de galeria g1..gN de un proyecto. */
 const galeria = (slug, cantidad) =>
   Array.from({ length: cantidad }, (_, i) => img(slug, `g${i + 1}`)).filter(Boolean);
@@ -111,6 +132,7 @@ export const PROYECTOS = [
         detalle:
           'Hormigón armado, sistema térmico EIFS, ventanas y termopanel PVC, calefacción central, muebles de cocina y clóset, altura piso a cielo 3 m.',
         extras: ['Sala de estar', 'Sistema térmico EIFS'],
+        planos: planos('reserva-las-rastras', '308', 2),
       },
       {
         nombre: 'Colonial 192',
@@ -119,6 +141,7 @@ export const PROYECTOS = [
         detalle:
           'Albañilería reforzada, ventanas termopanel PVC, calefacción central, muebles de cocina y clóset, altura piso a cielo 2,60 m.',
         extras: ['Sala de estar', 'Sistema térmico EIFS'],
+        planos: planos('reserva-las-rastras', '192', 2),
       },
       {
         nombre: 'Mediterránea 182',
@@ -127,6 +150,7 @@ export const PROYECTOS = [
         detalle:
           'Albañilería reforzada, ventanas termopanel PVC, calefacción central, muebles de cocina y clóset, altura piso a cielo 2,60 m.',
         extras: ['Sala de estar', 'Sistema térmico EIFS'],
+        planos: planos('reserva-las-rastras', '182', 2),
       },
       {
         nombre: 'Mediterránea 179',
@@ -135,6 +159,7 @@ export const PROYECTOS = [
         detalle:
           'Albañilería reforzada, ventanas termopanel PVC, calefacción central, muebles de cocina y clóset, altura piso a cielo 2,43 m.',
         extras: ['Sala de estar', 'Sistema térmico EIFS'],
+        planos: planos('reserva-las-rastras', '179', 2),
       },
       {
         nombre: 'Mediterránea 159',
@@ -143,6 +168,7 @@ export const PROYECTOS = [
         detalle:
           'Albañilería reforzada, ventanas termopanel PVC, calefacción central, muebles de cocina y clóset, altura piso a cielo 2,50 m.',
         extras: ['Sala de estar', 'Sistema térmico EIFS'],
+        planos: planos('reserva-las-rastras', '159', 1),
       },
       {
         nombre: 'Colonial 150',
@@ -151,6 +177,7 @@ export const PROYECTOS = [
         detalle:
           'Albañilería reforzada, ventanas termopanel PVC, calefacción central, muebles de cocina y clóset, altura piso a cielo 2,60 m.',
         extras: ['Sala de estar', 'Sistema térmico EIFS'],
+        planos: planos('reserva-las-rastras', '150', 1),
       },
     ],
     ejecutivas: [],
@@ -197,6 +224,7 @@ export const PROYECTOS = [
         detalle:
           'Dormitorio principal con baño en suite y un segundo baño de visitas. Closets terminados, cocina amoblada y living-comedor integrado. Estacionamiento incluido.',
         extras: ['Estacionamiento incluido', 'Ventanas termopanel'],
+        planos: planos('gabriela-mistral', '60-79'),
       },
       {
         nombre: 'Departamento 65,32 m²',
@@ -205,6 +233,7 @@ export const PROYECTOS = [
         detalle:
           'Dormitorio principal con baño en suite y un segundo baño de visitas. Closets terminados, cocina amoblada y living-comedor integrado. Estacionamiento incluido.',
         extras: ['Estacionamiento incluido', 'Ventanas termopanel'],
+        planos: planos('gabriela-mistral', '65-32'),
       },
     ],
     ejecutivas: [
@@ -249,11 +278,11 @@ export const PROYECTOS = [
       'Locales comerciales',
     ],
     modelos: [
-      { nombre: 'Depto T3A', tipologia: 'Departamento', m2: 62.15, uf: 2520, dormitorios: 3, banos: 2, detalle: 'Living-comedor integrado y sala de estar.', extras: ['Estacionamiento incluido', 'Ventanas termopanel'] },
-      { nombre: 'Depto T3B', tipologia: 'Departamento', m2: 62.83, uf: 2520, dormitorios: 3, banos: 2, detalle: 'Living-comedor integrado y sala de estar.', extras: ['Estacionamiento incluido', 'Ventanas termopanel'] },
-      { nombre: 'Depto T3C', tipologia: 'Departamento', m2: 62.80, uf: 2520, dormitorios: 3, banos: 2, detalle: 'Living-comedor integrado y sala de estar.', extras: ['Estacionamiento incluido', 'Ventanas termopanel'] },
-      { nombre: 'Depto T4A', tipologia: 'Departamento', m2: 66.86, uf: 2520, dormitorios: 3, banos: 2, detalle: 'Living-comedor integrado y sala de estar.', extras: ['Estacionamiento incluido', 'Ventanas termopanel'] },
-      { nombre: 'Depto T4B', tipologia: 'Departamento', m2: 66.84, uf: 2520, dormitorios: 3, banos: 2, detalle: 'Living-comedor integrado y sala de estar.', extras: ['Estacionamiento incluido', 'Ventanas termopanel'] },
+      { nombre: 'Depto T3A', tipologia: 'Departamento', m2: 62.15, uf: 2520, dormitorios: 3, banos: 2, detalle: 'Living-comedor integrado y sala de estar.', extras: ['Estacionamiento incluido', 'Ventanas termopanel'], planos: planos('parque-poniente-v', 't3a') },
+      { nombre: 'Depto T3B', tipologia: 'Departamento', m2: 62.83, uf: 2520, dormitorios: 3, banos: 2, detalle: 'Living-comedor integrado y sala de estar.', extras: ['Estacionamiento incluido', 'Ventanas termopanel'], planos: planos('parque-poniente-v', 't3b') },
+      { nombre: 'Depto T3C', tipologia: 'Departamento', m2: 62.80, uf: 2520, dormitorios: 3, banos: 2, detalle: 'Living-comedor integrado y sala de estar.', extras: ['Estacionamiento incluido', 'Ventanas termopanel'], planos: planos('parque-poniente-v', 't3c') },
+      { nombre: 'Depto T4A', tipologia: 'Departamento', m2: 66.86, uf: 2520, dormitorios: 3, banos: 2, detalle: 'Living-comedor integrado y sala de estar.', extras: ['Estacionamiento incluido', 'Ventanas termopanel'], planos: planos('parque-poniente-v', 't4a') },
+      { nombre: 'Depto T4B', tipologia: 'Departamento', m2: 66.84, uf: 2520, dormitorios: 3, banos: 2, detalle: 'Living-comedor integrado y sala de estar.', extras: ['Estacionamiento incluido', 'Ventanas termopanel'], planos: planos('parque-poniente-v', 't4b') },
     ],
     ejecutivas: [
       { nombre: 'Carolina Cide', whatsapp: '56981917888', telefono: '+56 9 8191 7888', email: 'ccide@fervali.cl' },
@@ -297,11 +326,11 @@ export const PROYECTOS = [
       'Locales comerciales',
     ],
     modelos: [
-      { nombre: 'Depto T3A', tipologia: 'Departamento', m2: 62.15, uf: 2590, dormitorios: 3, banos: 2, detalle: 'Living-comedor integrado y sala de estar.', extras: ['Estacionamiento incluido', 'Ventanas termopanel'] },
-      { nombre: 'Depto T3B', tipologia: 'Departamento', m2: 62.18, uf: 2590, dormitorios: 3, banos: 2, detalle: 'Living-comedor integrado y sala de estar.', extras: ['Estacionamiento incluido', 'Ventanas termopanel'] },
-      { nombre: 'Depto T3C', tipologia: 'Departamento', m2: 62.15, uf: 2590, dormitorios: 3, banos: 2, detalle: 'Living-comedor integrado y sala de estar.', extras: ['Estacionamiento incluido', 'Ventanas termopanel'] },
-      { nombre: 'Depto T4A', tipologia: 'Departamento', m2: 66.21, uf: 2800, dormitorios: 3, banos: 2, detalle: 'Living-comedor integrado y sala de estar.', extras: ['Estacionamiento incluido', 'Ventanas termopanel'] },
-      { nombre: 'Depto T4B', tipologia: 'Departamento', m2: 66.19, uf: 2800, dormitorios: 3, banos: 2, detalle: 'Living-comedor integrado y sala de estar.', extras: ['Estacionamiento incluido', 'Ventanas termopanel'] },
+      { nombre: 'Depto T3A', tipologia: 'Departamento', m2: 62.15, uf: 2590, dormitorios: 3, banos: 2, detalle: 'Living-comedor integrado y sala de estar.', extras: ['Estacionamiento incluido', 'Ventanas termopanel'], planos: planos('altos-de-yungay', 't3a') },
+      { nombre: 'Depto T3B', tipologia: 'Departamento', m2: 62.18, uf: 2590, dormitorios: 3, banos: 2, detalle: 'Living-comedor integrado y sala de estar.', extras: ['Estacionamiento incluido', 'Ventanas termopanel'], planos: planos('altos-de-yungay', 't3b') },
+      { nombre: 'Depto T3C', tipologia: 'Departamento', m2: 62.15, uf: 2590, dormitorios: 3, banos: 2, detalle: 'Living-comedor integrado y sala de estar.', extras: ['Estacionamiento incluido', 'Ventanas termopanel'], planos: planos('altos-de-yungay', 't3c') },
+      { nombre: 'Depto T4A', tipologia: 'Departamento', m2: 66.21, uf: 2800, dormitorios: 3, banos: 2, detalle: 'Living-comedor integrado y sala de estar.', extras: ['Estacionamiento incluido', 'Ventanas termopanel'], planos: planos('altos-de-yungay', 't4a') },
+      { nombre: 'Depto T4B', tipologia: 'Departamento', m2: 66.19, uf: 2800, dormitorios: 3, banos: 2, detalle: 'Living-comedor integrado y sala de estar.', extras: ['Estacionamiento incluido', 'Ventanas termopanel'], planos: planos('altos-de-yungay', 't4b') },
     ],
     ejecutivas: [
       { nombre: 'Valeria Cristi', whatsapp: '56962846361', telefono: '+56 9 6284 6361', email: 'vcristi@fervali.cl' },
@@ -350,6 +379,7 @@ export const PROYECTOS = [
         detalle:
           'Primer piso con dormitorio alfombrado, calefont, reja y piso de cerámica. Segundo piso alfombrado, con sala de estar, baño y dos amplios dormitorios.',
         extras: ['Sala de estar', 'Ventanas termopanel'],
+        planos: planos('parque-oriente', 'zaragoza', 2),
       },
     ],
     ejecutivas: [],
@@ -394,6 +424,7 @@ export const PROYECTOS = [
         detalle:
           'Primer piso con dormitorio alfombrado, calefont, reja y piso de cerámica. Segundo piso alfombrado, con sala de estar, baño y dos amplios dormitorios.',
         extras: ['Sala de estar', 'Ventanas termopanel'],
+        planos: planos('valles-de-linares', 'zaragoza', 2),
       },
     ],
     ejecutivas: [],
@@ -441,6 +472,7 @@ export const PROYECTOS = [
         detalle:
           'Dormitorio principal con baño en suite y segundo baño de visitas. Closets terminados, cocina amoblada y living-comedor integrado. Estacionamiento incluido.',
         extras: ['Estacionamiento incluido', 'Ventanas termopanel'],
+        planos: planos('rebeca-matte', '65'),
       },
     ],
     ejecutivas: [],
@@ -480,10 +512,10 @@ export const PROYECTOS = [
       'Calificación energética',
     ],
     modelos: [
-      { nombre: 'Zaragoza', tipologia: 'Vivienda de 2 pisos', m2: 84, uf: 2400, dormitorios: 3, banos: 2, detalle: 'Primer piso con dormitorio alfombrado, calefont, reja y piso de cerámica. Segundo piso alfombrado, con sala de estar y dos amplios dormitorios.', extras: ['Sala de estar', 'Ventanas termopanel'] },
-      { nombre: 'Valencia', tipologia: 'Vivienda de 2 pisos', m2: 77, uf: 2100, dormitorios: 3, banos: 1, detalle: 'Primer nivel con dormitorio, calefont, reja y piso de cerámica. Segundo nivel con dos amplios dormitorios alfombrados.', extras: ['Ventanas termopanel'] },
-      { nombre: 'Barcelona', tipologia: 'Vivienda de 2 pisos', m2: 71, uf: 1600, dormitorios: 3, banos: 1, detalle: 'Primer piso de cerámica, dormitorio, calefont y reja. Segundo piso con dos amplios dormitorios alfombrados.', extras: ['Ventanas termopanel'] },
-      { nombre: 'Sevilla', tipologia: 'Vivienda de 2 pisos', m2: 65, uf: 1550, dormitorios: 3, banos: 1, detalle: 'Primer nivel con piso de cerámica, dormitorio, calefont y reja perimetral. Segundo nivel con dos amplios dormitorios alfombrados.', extras: ['Ventanas termopanel'] },
+      { nombre: 'Zaragoza', tipologia: 'Vivienda de 2 pisos', m2: 84, uf: 2400, dormitorios: 3, banos: 2, detalle: 'Primer piso con dormitorio alfombrado, calefont, reja y piso de cerámica. Segundo piso alfombrado, con sala de estar y dos amplios dormitorios.', extras: ['Sala de estar', 'Ventanas termopanel'], planos: planos('eloisa-diaz', 'zaragoza', 2) },
+      { nombre: 'Valencia', tipologia: 'Vivienda de 2 pisos', m2: 77, uf: 2100, dormitorios: 3, banos: 1, detalle: 'Primer nivel con dormitorio, calefont, reja y piso de cerámica. Segundo nivel con dos amplios dormitorios alfombrados.', extras: ['Ventanas termopanel'], planos: planos('eloisa-diaz', 'valencia', 2) },
+      { nombre: 'Barcelona', tipologia: 'Vivienda de 2 pisos', m2: 71, uf: 1600, dormitorios: 3, banos: 1, detalle: 'Primer piso de cerámica, dormitorio, calefont y reja. Segundo piso con dos amplios dormitorios alfombrados.', extras: ['Ventanas termopanel'], planos: planos('eloisa-diaz', 'barcelona', 2) },
+      { nombre: 'Sevilla', tipologia: 'Vivienda de 2 pisos', m2: 65, uf: 1550, dormitorios: 3, banos: 1, detalle: 'Primer nivel con piso de cerámica, dormitorio, calefont y reja perimetral. Segundo nivel con dos amplios dormitorios alfombrados.', extras: ['Ventanas termopanel'], planos: planos('eloisa-diaz', 'sevilla', 2) },
     ],
     ejecutivas: [],
     mapa: null,
@@ -526,10 +558,10 @@ export const PROYECTOS = [
       'Calificación energética',
     ],
     modelos: [
-      { nombre: 'Zaragoza', tipologia: 'Vivienda de 2 pisos', m2: 84, uf: 2400, dormitorios: 3, banos: 2, detalle: 'Primer piso con dormitorio alfombrado, calefont, reja y piso de cerámica. Segundo piso alfombrado, con sala de estar y dos amplios dormitorios.', extras: ['Sala de estar', 'Ventanas termopanel'] },
-      { nombre: 'Valencia', tipologia: 'Vivienda de 2 pisos', m2: 77, uf: 2100, dormitorios: 3, banos: 1, detalle: 'Primer nivel con dormitorio, calefont, reja y piso de cerámica. Segundo nivel con dos amplios dormitorios alfombrados.', extras: ['Ventanas termopanel'] },
-      { nombre: 'Barcelona', tipologia: 'Vivienda de 2 pisos', m2: 71, uf: 1600, dormitorios: 3, banos: 1, detalle: 'Primer piso de cerámica, dormitorio principal, calefont y reja. Segundo piso con dos amplios dormitorios alfombrados.', extras: ['Ventanas termopanel'] },
-      { nombre: 'Sevilla', tipologia: 'Vivienda de 2 pisos', m2: 65, uf: 1550, dormitorios: 3, banos: 1, detalle: 'Primer nivel con piso de cerámica, dormitorio, calefont y reja perimetral. Segundo nivel con dos amplios dormitorios alfombrados.', extras: ['Ventanas termopanel'] },
+      { nombre: 'Zaragoza', tipologia: 'Vivienda de 2 pisos', m2: 84, uf: 2400, dormitorios: 3, banos: 2, detalle: 'Primer piso con dormitorio alfombrado, calefont, reja y piso de cerámica. Segundo piso alfombrado, con sala de estar y dos amplios dormitorios.', extras: ['Sala de estar', 'Ventanas termopanel'], planos: planos('margot-duhalde', 'zaragoza', 2) },
+      { nombre: 'Valencia', tipologia: 'Vivienda de 2 pisos', m2: 77, uf: 2100, dormitorios: 3, banos: 1, detalle: 'Primer nivel con dormitorio, calefont, reja y piso de cerámica. Segundo nivel con dos amplios dormitorios alfombrados.', extras: ['Ventanas termopanel'], planos: planos('margot-duhalde', 'valencia', 2) },
+      { nombre: 'Barcelona', tipologia: 'Vivienda de 2 pisos', m2: 71, uf: 1600, dormitorios: 3, banos: 1, detalle: 'Primer piso de cerámica, dormitorio principal, calefont y reja. Segundo piso con dos amplios dormitorios alfombrados.', extras: ['Ventanas termopanel'], planos: planos('margot-duhalde', 'barcelona', 2) },
+      { nombre: 'Sevilla', tipologia: 'Vivienda de 2 pisos', m2: 65, uf: 1550, dormitorios: 3, banos: 1, detalle: 'Primer nivel con piso de cerámica, dormitorio, calefont y reja perimetral. Segundo nivel con dos amplios dormitorios alfombrados.', extras: ['Ventanas termopanel'], planos: planos('margot-duhalde', 'sevilla', 2) },
     ],
     ejecutivas: [],
     mapa: 'https://www.google.com/maps/place/-35.597671,-71.712243',
