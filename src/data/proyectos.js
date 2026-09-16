@@ -107,9 +107,9 @@ export const PROYECTOS = [
     destacado: true,
     titular: 'El barrio residencial más exclusivo de la región del Maule',
     resumen:
-      'Seis tipos de vivienda en sitios completamente urbanizados, en el sector de mayor plusvalía de Talca.',
+      'Seis modelos de casa en sitios urbanizados, más sitios desde 500 m² para construir a medida.',
     descripcion:
-      'Emplazado en el sector con la más alta plusvalía de Talca, Reserva Las Rastras ofrece seis tipos de viviendas en sitios completamente urbanizados, además de sitios desde los 500 m² para quienes prefieren construir a medida. Red eléctrica subterránea, control de acceso y microbarrios conectados por amplias avenidas.',
+      'Reserva Las Rastras tiene seis modelos de casa en sitios ya urbanizados, y también vende sitios desde 500 m² para quien prefiera construir a su medida. El cableado eléctrico va subterráneo, hay control de acceso y los microbarrios se conectan por avenidas anchas.',
     desdeUF: null, // precio a consultar: no publicado en la ficha original
     superficie: { min: 150, max: 308 },
     sitioDesde: 500,
@@ -202,9 +202,9 @@ export const PROYECTOS = [
     destacado: false,
     titular: 'Todo gran comienzo merece un gran lugar en Linares',
     resumen:
-      'Departamentos de 3 dormitorios con estacionamiento incluido, en un entorno con áreas verdes y juegos infantiles.',
+      'Departamentos de 3 dormitorios con estacionamiento, en un condominio con áreas verdes y juegos infantiles.',
     descripcion:
-      'Gabriela Mistral abre un nuevo capítulo para vivir en Linares, con departamentos pensados para familias que buscan comodidad, conectividad y una mejor calidad de vida. Reúne espacios funcionales de 3 dormitorios, terminaciones prácticas y áreas comunes diseñadas para disfrutar el día a día, en un entorno residencial con áreas verdes, juegos infantiles, espacios recreativos y gestión eficiente de residuos.',
+      'Departamentos de 3 dormitorios en Linares. El principal tiene baño en suite, y hay un segundo baño de visitas. Vienen con clósets terminados, cocina amoblada, living-comedor integrado y estacionamiento. Dentro del condominio hay áreas verdes y juegos infantiles.',
     desdeUF: 1670,
     superficie: { min: 60.79, max: 65.32 },
     dormitorios: { min: 3, max: 3 },
@@ -263,7 +263,7 @@ export const PROYECTOS = [
     resumen:
       'Departamentos de 3 dormitorios y 2 baños con estacionamiento incluido, en un conjunto cerrado con locales comerciales.',
     descripcion:
-      'Parque Poniente V reúne lo que una familia necesita para construir una vida más cómoda, conectada y segura en San Fernando. Sus departamentos forman parte de un conjunto residencial diseñado para aprovechar mejor el espacio, fomentar la vida en comunidad y entregar áreas comunes que suman valor real al día a día.',
+      'Departamentos de 3 dormitorios y 2 baños en San Fernando, con estacionamiento incluido. El conjunto es cerrado y tiene quincho, juegos infantiles, estaciones de ejercicio y locales comerciales adentro, así que buena parte del día a día se resuelve sin salir.',
     desdeUF: 2520,
     superficie: { min: 62.15, max: 66.86 },
     dormitorios: { min: 3, max: 3 },
@@ -307,11 +307,11 @@ export const PROYECTOS = [
     estado: 'en-venta',
     subsidio: true,
     destacado: false,
-    titular: 'Donde la conectividad y la calidad de vida se encuentran',
+    titular: 'En Quillota, a pasos del Camino Internacional',
     resumen:
       'Departamentos DS19 a pasos del Camino Internacional, con conexión directa a Viña del Mar, Valparaíso y Santiago.',
     descripcion:
-      'A pasos del Camino Internacional, en pleno barrio consolidado de Quillota, Condominio Altos de Yungay 5 ofrece una ubicación privilegiada que conecta con Viña del Mar, Valparaíso y Santiago a través de la Ruta 5 Norte. El proyecto se enmarca en el Programa de Integración Social y Territorial (DS-19) del Ministerio de Vivienda y Urbanismo.',
+      'El condominio está en Quillota, a pasos del Camino Internacional. Desde ahí la Ruta 5 Norte te deja en Viña del Mar, Valparaíso o Santiago. Son departamentos con subsidio DS19, el Programa de Integración Social y Territorial del Minvu.',
     desdeUF: 2590,
     superficie: { min: 62.15, max: 66.21 },
     dormitorios: { min: 3, max: 3 },
@@ -356,9 +356,9 @@ export const PROYECTOS = [
     subsidio: false,
     destacado: false,
     titular: 'Entrega inmediata y conexión directa con Ruta 5 Sur',
-    resumen: '66 viviendas de 84 m² con amplios terrenos, 3 dormitorios y 2 baños.',
+    resumen: '66 casas de 84 m² en terrenos amplios, con 3 dormitorios y 2 baños.',
     descripcion:
-      'Parque Oriente ofrece 66 viviendas de 84 m², con amplios terrenos y un diseño que combina comodidad, funcionalidad y estilo moderno. Cada casa cuenta con 3 dormitorios, 2 baños y espacios luminosos pensados para el bienestar familiar.',
+      '66 casas de 84 m² en terrenos amplios, con 3 dormitorios y 2 baños. Abajo van un dormitorio, baño y piso de cerámica; arriba, la sala de estar y dos dormitorios alfombrados.',
     desdeUF: 2000,
     superficie: { min: 84, max: 84 },
     dormitorios: { min: 3, max: 3 },
@@ -402,10 +402,10 @@ export const PROYECTOS = [
     estado: 'en-venta',
     subsidio: false,
     destacado: false,
-    titular: 'Excelente conexión con el centro y los principales servicios',
-    resumen: '64 viviendas de 84 m² con 3 dormitorios, 2 baños y amplios espacios interiores.',
+    titular: 'Casas de 84 m² con el centro de Linares a mano',
+    resumen: '64 casas de 84 m² con 3 dormitorios y 2 baños, cerca del centro de Linares.',
     descripcion:
-      'Valles de Linares ofrece 64 viviendas diseñadas para combinar comodidad, funcionalidad y estilo moderno. Cada casa cuenta con 3 dormitorios, 2 baños y amplios espacios interiores, ideales para el bienestar y la vida familiar, con excelente conectividad al centro y los principales servicios de Linares.',
+      '64 casas de 84 m² con 3 dormitorios y 2 baños, a poca distancia del centro de Linares y de los servicios que ya usas. Abajo hay un dormitorio, baño y piso de cerámica; arriba, sala de estar y dos dormitorios alfombrados.',
     desdeUF: 2000,
     superficie: { min: 84, max: 84 },
     dormitorios: { min: 3, max: 3 },
@@ -447,11 +447,11 @@ export const PROYECTOS = [
     estado: 'en-venta',
     subsidio: false,
     destacado: false,
-    titular: 'Tu nuevo hogar en una zona de alto crecimiento en Talca',
+    titular: 'Al lado de las universidades y del Mall Plaza Maule',
     resumen:
       'Departamentos de 65 m² con quincho, piscina y juegos infantiles, cerca de universidades y Mall Plaza Maule.',
     descripcion:
-      'En el corazón del sector oriente de Talca nace Condominio Rebeca Matte, un proyecto exclusivo diseñado para elevar tu calidad de vida. Con departamentos de 65 m² plus, cada espacio combina comodidad, modernidad y funcionalidad.',
+      'Departamentos de 65 m² con 3 dormitorios y 2 baños, en el sector oriente de Talca. Quedan cerca de las universidades y del Mall Plaza Maule. El condominio tiene quincho, piscina y juegos infantiles.',
     desdeUF: 2400,
     superficie: { min: 65, max: 65 },
     dormitorios: { min: 3, max: 3 },
@@ -495,11 +495,11 @@ export const PROYECTOS = [
     estado: 'en-venta',
     subsidio: true,
     destacado: false,
-    titular: 'Tu nuevo hogar en una ubicación privilegiada de Linares',
+    titular: 'Casas con subsidio DS19, cerca del centro de Linares',
     resumen:
-      '195 viviendas con subsidio DS19, en cinco modelos de 65 a 84 m² con excelente acceso al centro.',
+      '195 casas en cuatro modelos, de 65 a 84 m², todas con subsidio DS19.',
     descripcion:
-      'Eloísa Díaz ofrece 195 viviendas con subsidio DS19, en modelos de 65 a 84 m² diseñados para combinar comodidad, funcionalidad y estilo contemporáneo. Su primera etapa ya está disponible, con casas de 3 dormitorios y espacios luminosos pensados para el bienestar familiar, en una ubicación privilegiada con excelente acceso al centro de Linares.',
+      '195 casas con subsidio DS19 en Linares, en cuatro modelos de 65 a 84 m², todas de dos pisos y 3 dormitorios. La primera etapa ya está a la venta y queda con buen acceso al centro.',
     desdeUF: 1550,
     superficie: { min: 65, max: 84 },
     dormitorios: { min: 3, max: 3 },
@@ -541,7 +541,7 @@ export const PROYECTOS = [
     resumen:
       '490 viviendas en dos etapas, en los terrenos de la histórica Viña Balduzzi, con acceso por Avenida Balmaceda.',
     descripcion:
-      'Margot Duhalde se ubica en el sector céntrico de San Javier, en los terrenos de la histórica Viña Balduzzi, con acceso privilegiado por Avenida Balmaceda. El proyecto contempla 490 viviendas desarrolladas en dos etapas —285 en la primera y 205 en la segunda—, entregando soluciones modernas y de calidad para cientos de familias de la región del Maule.',
+      'Margot Duhalde está en el centro de San Javier, en los terrenos de la antigua Viña Balduzzi, con entrada por Avenida Balmaceda. Son 490 casas repartidas en dos etapas: 285 en la primera y 205 en la segunda.',
     desdeUF: 1550,
     superficie: { min: 65, max: 84 },
     dormitorios: { min: 3, max: 3 },

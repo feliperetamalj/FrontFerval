@@ -58,7 +58,7 @@ export function Subsidio() {
             <p className={estilos.bajada}>
               {conSubsidio.length} de nuestros proyectos se acogen al Programa de
               Integración Social y Territorial. Te decimos con franqueza si
-              calificas, cuánto ahorro necesitas y qué modelo te alcanza — sin
+              calificas, cuánto ahorro necesitas y qué modelo te alcanza. Sin
               costo y sin compromiso de compra.
             </p>
 
