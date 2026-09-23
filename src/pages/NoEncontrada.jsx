@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Boton, Contenedor, Seccion } from '../components/ui/index.js';
@@ -13,10 +12,6 @@ import estilos from './NoEncontrada.module.css';
  * entrada mas bajo: el visitante llego buscando vivienda y aqui la encuentra.
  */
 export function NoEncontrada() {
-  useEffect(() => {
-    document.title = 'Página no encontrada · Ferval';
-  }, []);
-
   const sugeridos = [...PROYECTOS]
     .filter((p) => typeof p.desdeUF === 'number')
     .sort((a, b) => a.desdeUF - b.desdeUF)

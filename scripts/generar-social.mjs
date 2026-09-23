@@ -1,16 +1,19 @@
 /**
  * Genera los recursos de marca que no forman parte del bundle de React:
  *
- *   public/og-image.jpg        1200x630  · tarjeta para WhatsApp y redes
- *   public/apple-touch-icon.png 180x180  · icono en pantalla de inicio iOS
+ *   public/og-image.jpg          1200x630  · tarjeta para WhatsApp y redes
+ *   public/og/<slug>.jpg         1200x630  · una tarjeta por proyecto
+ *   public/apple-touch-icon.png   180x180  · icono en pantalla de inicio iOS
  *
- * Se ejecuta con `npm run social`. Solo hay que volver a correrlo si cambia
- * el logotipo o la fotografia de portada.
+ * Se ejecuta con `npm run social`. Hay que volver a correrlo si cambia el
+ * logotipo, la fotografia de portada o los datos de un proyecto.
  */
 
+import { mkdir } from 'node:fs/promises';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
+import { createServer } from 'vite';
 
 const RAIZ = join(dirname(fileURLToPath(import.meta.url)), '..');
 const ANCHO = 1200;
@@ -50,6 +53,10 @@ const velo = Buffer.from(`
  * aporta el logotipo real que se compone encima.
  */
 const PILA = 'Helvetica Neue, Helvetica, Arial, sans-serif';
+
+/** Un `&` o un `<` sueltos rompen el SVG que interpreta sharp. */
+const escapar = (texto) =>
+  String(texto).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 const texto = Buffer.from(`
 <svg xmlns="http://www.w3.org/2000/svg" width="${ANCHO}" height="${ALTO}">
@@ -107,4 +114,87 @@ await sharp(join(RAIZ, 'src/assets/brand/logo-ferval.png'))
   .png()
   .toFile(join(RAIZ, 'public/apple-touch-icon.png'));
 
-console.log('og-image.jpg (1200x630) y apple-touch-icon.png (180x180) generados');
+/* ------------------------------------------------------------------------ */
+/* 3 · Una tarjeta por proyecto                                              */
+/* ------------------------------------------------------------------------ */
+
+/*
+  Sin esto, compartir cualquier ficha por WhatsApp mostraba la misma foto y el
+  mismo titulo que la portada: nueve enlaces distintos con una sola tarjeta.
+  Como todos los CTA del sitio llevan a WhatsApp, era el canal donde peor se
+  veia. Cada proyecto pasa a tener la suya, con su foto, su comuna y su precio.
+
+  Los datos se leen del propio `proyectos.js` a traves de Vite, porque ese
+  modulo resuelve sus imagenes con `import.meta.glob` y no corre en Node pelado.
+*/
+const vite = await createServer({ server: { middlewareMode: true }, appType: 'custom', logLevel: 'warn' });
+const { PROYECTOS } = await vite.ssrLoadModule('/src/data/proyectos.js');
+await vite.close();
+
+await mkdir(join(RAIZ, 'public/og'), { recursive: true });
+
+/** Corta en el ultimo espacio: cortar por caracter dejaba "juegos infantile". */
+function resumir(texto, maximo) {
+  if (texto.length <= maximo) return texto;
+  const corte = texto.slice(0, maximo);
+  return `${corte.slice(0, corte.lastIndexOf(' '))}…`;
+}
+
+/** Parte el titulo en lineas para que un nombre largo no se salga del lienzo. */
+function enLineas(texto, maximo) {
+  const lineas = [];
+  let actual = '';
+  for (const palabra of texto.split(' ')) {
+    if ((`${actual} ${palabra}`).trim().length > maximo && actual) {
+      lineas.push(actual);
+      actual = palabra;
+    } else {
+      actual = (`${actual} ${palabra}`).trim();
+    }
+  }
+  if (actual) lineas.push(actual);
+  return lineas;
+}
+
+for (const proyecto of PROYECTOS) {
+  const foto = await sharp(join(RAIZ, `src/assets/proyectos/${proyecto.slug}/hero.webp`))
+    .resize(ANCHO, ALTO, { fit: 'cover', position: 'attention' })
+    .toBuffer();
+
+  const lineas = enLineas(proyecto.nombre, 18);
+  const baseY = 300 - (lineas.length - 1) * 34;
+  const precio = proyecto.desdeUF
+    ? `DESDE UF ${proyecto.desdeUF.toLocaleString('es-CL')}`
+    : 'PRECIO A CONSULTAR';
+
+  const capa = Buffer.from(`
+<svg xmlns="http://www.w3.org/2000/svg" width="${ANCHO}" height="${ALTO}">
+  <text x="248" y="216" font-family="${PILA}" font-size="19" font-weight="600"
+        letter-spacing="3.4" fill="${CYAN}">${escapar(proyecto.comuna.toUpperCase())} · ${escapar(proyecto.region.toUpperCase())}</text>
+
+  ${lineas.map((linea, i) => `<text x="248" y="${baseY + i * 68}" font-family="${PILA}" font-size="58"
+        font-weight="700" letter-spacing="-1.4" fill="#FFFFFF">${escapar(linea)}</text>`).join('')}
+
+  <text x="248" y="${baseY + lineas.length * 68 + 30}" font-family="${PILA}" font-size="25" font-weight="400"
+        fill="#D6D4DA">${escapar(resumir(proyecto.resumen, 62))}</text>
+
+  <rect x="248" y="${ALTO - 132}" width="${precio.length * 14 + 60}" height="52" rx="26" fill="${CYAN}"/>
+  <text x="278" y="${ALTO - 98}" font-family="${PILA}" font-size="24" font-weight="700"
+        fill="${GRAFITO}">${escapar(precio)}</text>
+
+  <rect x="0" y="${ALTO - 10}" width="${ANCHO}" height="10" fill="${CYAN}"/>
+</svg>`);
+
+  await sharp(foto)
+    .composite([
+      { input: velo, top: 0, left: 0 },
+      { input: capa, top: 0, left: 0 },
+      { input: logo, top: 92, left: 84 },
+    ])
+    .jpeg({ quality: 86, mozjpeg: true })
+    .toFile(join(RAIZ, `public/og/${proyecto.slug}.jpg`));
+}
+
+console.log(
+  `og-image.jpg, ${PROYECTOS.length} tarjetas en public/og/ y apple-touch-icon.png generados`,
+);

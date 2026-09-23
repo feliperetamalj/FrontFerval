@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-
 import {
   Hero,
   Portafolio,
@@ -29,10 +27,6 @@ import {
  * llega a un sitio inmobiliario quiere ver casas, no leer sobre la empresa.
  */
 export function Inicio() {
-  useEffect(() => {
-    document.title = 'Ferval · Casas y departamentos en Talca, Linares y San Javier';
-  }, []);
-
   return (
     <>
       <Hero />

@@ -6,10 +6,11 @@
   "description": "Landing page de Inmobiliaria Ferval - Talca, Region del Maule",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && npm run prerender",
     "preview": "vite preview",
     "imagenes": "node scripts/optimizar-imagenes.mjs",
-    "social": "node scripts/generar-social.mjs"
+    "social": "node scripts/generar-social.mjs",
+    "prerender": "node scripts/prerender.mjs"
   },
   "dependencies": {
     "react": "^18.3.1",

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 
 import { Boton, Contenedor, Etiqueta, Icono, Reveal, Seccion } from '../components/ui/index.js';
@@ -31,12 +31,6 @@ export function ProyectoDetalle() {
   // Un unico visor para toda la seccion: guarda el modelo cuyo plano se mira,
   // en vez de montar un modal por tarjeta.
   const [modeloEnPlano, setModeloEnPlano] = useState(null);
-
-  useEffect(() => {
-    if (proyecto) {
-      document.title = `${proyecto.nombre} · ${proyecto.comuna} · Ferval`;
-    }
-  }, [proyecto]);
 
   // Slug inexistente: se delega en la ruta comodin en vez de renderizar vacio.
   if (!proyecto) return <Navigate to="/404" replace />;

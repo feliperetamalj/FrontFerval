@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 
+import { Meta } from './components/Meta.jsx';
 import { Header } from './components/layout/Header.jsx';
 import { Footer } from './components/layout/Footer.jsx';
 import { CtaFlotante } from './components/layout/CtaFlotante.jsx';
@@ -19,6 +20,8 @@ import { NoEncontrada } from './pages/NoEncontrada.jsx';
 export function App() {
   return (
     <>
+      <Meta />
+
       {/* Primer elemento enfocable: permite saltar la navegacion con el teclado. */}
       <a className="skip-link" href="#contenido">
         Saltar al contenido
