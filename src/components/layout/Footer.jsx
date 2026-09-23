@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import { Contenedor, Icono, Logo } from '../ui/index.js';
 import { EMPRESA, NAVEGACION } from '../../data/empresa.js';
 import estilos from './Footer.module.css';
@@ -96,6 +98,11 @@ export function Footer() {
           <p>
             © {anio} {EMPRESA.nombreLegal} - © {anio} RB Software Solutions.
             Todos los Derechos Reservados.
+            <span className={estilos.legalEnlaces}>
+              <Link to="/privacidad" className={estilos.enlace}>Privacidad</Link>
+              <span aria-hidden="true" className={estilos.separadorLegal}>·</span>
+              <Link to="/terminos" className={estilos.enlace}>Términos</Link>
+            </span>
           </p>
           <p className={estilos.aviso}>
             Las imágenes son referenciales. Precios expresados en UF, sujetos a
