@@ -26,7 +26,7 @@ const UMBRAL_GESTO = 45;
  * Escape o clic fuera, y permite navegar con las flechas del teclado.
  *
  * @param {object} props
- * @param {string[]} props.imagenes
+ * @param {{src: string, srcSet: string}[]} props.imagenes
  * @param {string} props.nombreProyecto  usado en los textos alternativos
  */
 export function Galeria({ imagenes, nombreProyecto }) {
@@ -135,7 +135,7 @@ export function Galeria({ imagenes, nombreProyecto }) {
           >
             {imagenes.map((imagen, i) => (
               <div
-                key={imagen}
+                key={imagen.src}
                 className={estilos.diapositiva}
                 aria-hidden={i === indice ? undefined : 'true'}
               >
@@ -149,7 +149,9 @@ export function Galeria({ imagenes, nombreProyecto }) {
                   aria-label={`Ampliar imagen ${i + 1} de ${total} de ${nombreProyecto}`}
                 >
                   <img
-                    src={imagen}
+                    src={imagen.src}
+                    srcSet={imagen.srcSet}
+                    sizes="(min-width: 1360px) 1200px, 94vw"
                     alt={`${nombreProyecto}, imagen ${i + 1}`}
                     loading={i === 0 ? 'eager' : 'lazy'}
                     decoding="async"
@@ -187,7 +189,7 @@ export function Galeria({ imagenes, nombreProyecto }) {
             <div className={estilos.puntos}>
               {imagenes.map((imagen, i) => (
                 <button
-                  key={imagen}
+                  key={imagen.src}
                   type="button"
                   className={`${estilos.punto} ${i === indice ? estilos.puntoActivo : ''}`}
                   onClick={() => irA(i)}
@@ -227,7 +229,7 @@ export function Galeria({ imagenes, nombreProyecto }) {
 
           {/* stopPropagation evita que el clic sobre la imagen cierre el visor. */}
           <img
-            src={imagenes[indiceAbierto]}
+            src={imagenes[indiceAbierto].src}
             alt={`${nombreProyecto}, imagen ${indiceAbierto + 1}`}
             className={estilos.imagenVisor}
             onClick={(e) => e.stopPropagation()}

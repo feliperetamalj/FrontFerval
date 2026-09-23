@@ -98,8 +98,34 @@ const ANCHOS_TARJETA = [480, 960, 1440];
 let variantes = 0;
 let bytesVariantes = 0;
 
+/*
+  Escalones de la galeria. El de 960 existe por un caso concreto: un celular de
+  375 px a doble densidad necesita unos 705, asi que con solo 640 y 1280 el
+  navegador se saltaba el chico y bajaba el grande igual.
+*/
+const ANCHOS_GALERIA = [640, 960];
+
 for await (const ruta of recorrer(RAIZ)) {
-  if (basename(ruta) !== 'hero.webp') continue;
+  const nombre = basename(ruta);
+
+  // Galeria: el original mide 1280 y en el celular se pinta a 335. Una
+  // variante de 640 cubre esa pantalla a doble densidad sin bajar el doble.
+  if (/^g\d+\.webp$/.test(nombre)) {
+    const base = nombre.replace('.webp', '');
+    for (const ancho of ANCHOS_GALERIA) {
+      const meta = await sharp(ruta).metadata();
+      if (meta.width <= ancho) continue;
+      const destino = join(dirname(ruta), `${base}-${ancho}.webp`);
+      await sharp(ruta).resize({ width: ancho })
+        .webp({ quality: PERFILES.galeria.calidad, effort: 6 })
+        .toFile(destino);
+      bytesVariantes += (await stat(destino)).size;
+      variantes += 1;
+    }
+    continue;
+  }
+
+  if (nombre !== 'hero.webp') continue;
 
   const meta = await sharp(ruta).metadata();
 

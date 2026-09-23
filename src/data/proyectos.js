@@ -67,9 +67,25 @@ const planos = (slug, base, niveles = 0) => {
   return lista.filter(Boolean);
 };
 
+/**
+ * `srcset` de una foto de galeria.
+ *
+ * El carrusel ocupa el ancho del contenedor: unos 1.200 px en escritorio y
+ * 335 en un celular. Servir siempre el archivo de 1.280 hacia que el movil
+ * bajara casi el doble de lo que iba a pintar.
+ */
+const galeriaSrcSet = (slug, n) =>
+  [[img(slug, `g${n}-640`), 640], [img(slug, `g${n}-960`), 960], [img(slug, `g${n}`), 1280]]
+    .filter(([url]) => url)
+    .map(([url, ancho]) => `${url} ${ancho}w`)
+    .join(', ');
+
 /** Construye el arreglo de galeria g1..gN de un proyecto. */
 const galeria = (slug, cantidad) =>
-  Array.from({ length: cantidad }, (_, i) => img(slug, `g${i + 1}`)).filter(Boolean);
+  Array.from({ length: cantidad }, (_, i) => ({
+    src: img(slug, `g${i + 1}`),
+    srcSet: galeriaSrcSet(slug, i + 1),
+  })).filter((foto) => foto.src);
 
 /** Imagenes de secciones generales (no pertenecen a un proyecto). */
 export const IMAGENES_GENERALES = {
