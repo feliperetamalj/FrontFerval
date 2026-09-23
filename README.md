@@ -17,10 +17,12 @@ El sitio queda en `http://localhost:5173`.
 | Comando | Qué hace |
 |---|---|
 | `npm run dev` | Servidor de desarrollo con recarga en caliente |
-| `npm run build` | Compila a `dist/` |
+| `npm run build` | Compila a `dist/`, prerenderiza cada ruta y arma el sitemap |
 | `npm run preview` | Sirve `dist/` para revisar el build antes de desplegar |
-| `npm run imagenes` | Convierte a WebP las fotos nuevas de `src/assets/proyectos/` |
-| `npm run social` | Regenera `og-image.jpg` y `apple-touch-icon.png` |
+| `npm run imagenes` | Convierte a WebP las fotos nuevas y genera sus variantes por tamaño |
+| `npm run social` | Regenera las tarjetas sociales, los favicons y el webmanifest |
+| `npm run prerender` | Solo el paso de prerenderizado (lo llama `build`) |
+| `npm run sitemap` | Solo el paso del sitemap (lo llama `build`) |
 
 > **Node.js** se instaló en `~/.local/node` (sin permisos de administrador).
 > `~/.zshrc` ya incluye la línea que lo agrega al `PATH`. Si `node` no
