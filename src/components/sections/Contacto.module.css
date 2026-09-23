@@ -224,3 +224,13 @@
   .formulario { padding: var(--space-5); }
   .acciones > * { flex: 1 1 100%; }
 }
+
+/* Campo señalado por el mensaje de error. */
+.formulario input[aria-invalid],
+.formulario textarea[aria-invalid] {
+  border-color: var(--aviso, #C2410C);
+  background-color: #FFF8F5;
+}
+
+.enlaceAviso { color: var(--text-link); }
+.enlaceAviso:hover { text-decoration: underline; }
