@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 
 import { Meta } from './components/Meta.jsx';
+import { Analitica } from './components/Analitica.jsx';
 import { Header } from './components/layout/Header.jsx';
 import { Footer } from './components/layout/Footer.jsx';
 import { CtaFlotante } from './components/layout/CtaFlotante.jsx';
@@ -49,6 +50,7 @@ export function App() {
       <Footer />
       <CtaFlotante />
       <IrArriba />
+      <Analitica />
     </>
   );
 }

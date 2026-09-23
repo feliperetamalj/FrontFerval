@@ -1,0 +1,51 @@
+/*
+  Barra inferior en vez de modal a pantalla completa: informa sin bloquear la
+  lectura, que es justo lo que arruina la conversion de estos avisos.
+  Se posiciona sobre el CTA flotante para no quedar tapada por el.
+*/
+.banner {
+  position: fixed;
+  inset-block-end: 0;
+  inset-inline: 0;
+  z-index: calc(var(--z-modal) - 1);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4) var(--space-6);
+  padding: var(--space-4) var(--space-5);
+  background-color: var(--surface-inverse-deep);
+  border-top: 1px solid var(--border-inverse);
+  box-shadow: var(--shadow-lg);
+  animation: subir var(--dur-base) var(--ease-out);
+}
+
+@keyframes subir {
+  from { transform: translate3d(0, 100%, 0); }
+  to { transform: none; }
+}
+
+.texto {
+  max-width: 46rem;
+  color: var(--text-on-inverse-muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+}
+
+.enlace { color: var(--brand); text-decoration: underline; }
+
+.acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+@media (max-width: 620px) {
+  .banner { justify-content: flex-start; }
+  .acciones { width: 100%; }
+  .acciones > * { flex: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .banner { animation: none; }
+}
