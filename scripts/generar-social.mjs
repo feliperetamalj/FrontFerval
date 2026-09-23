@@ -4,12 +4,15 @@
  *   public/og-image.jpg          1200x630  · tarjeta para WhatsApp y redes
  *   public/og/<slug>.jpg         1200x630  · una tarjeta por proyecto
  *   public/apple-touch-icon.png   180x180  · icono en pantalla de inicio iOS
+ *   public/favicon.ico            16/32/48 · el que piden los navegadores por defecto
+ *   public/icon-192.png, icon-512.png      · Android y la pantalla de inicio
+ *   public/site.webmanifest                · nombre y colores al instalar el sitio
  *
  * Se ejecuta con `npm run social`. Hay que volver a correrlo si cambia el
  * logotipo, la fotografia de portada o los datos de un proyecto.
  */
 
-import { mkdir } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
@@ -195,6 +198,85 @@ for (const proyecto of PROYECTOS) {
     .toFile(join(RAIZ, `public/og/${proyecto.slug}.jpg`));
 }
 
+/* ------------------------------------------------------------------------ */
+/* 4 · Favicons                                                              */
+/* ------------------------------------------------------------------------ */
+
+/*
+  Dos artes distintos a proposito. Bajo 48 px el nombre dentro del logotipo se
+  convierte en una mancha gris, asi que ahi va el isotipo solo (marco, cuadro y
+  muesca). De 180 px para arriba el nombre si se lee y corresponde el arte
+  oficial completo.
+*/
+const isotipo = await readFile(join(RAIZ, 'public/favicon.svg'));
+const oficial = join(RAIZ, 'src/assets/brand/logo-ferval.png');
+
+const pequeno = (lado) => sharp(isotipo, { density: 400 }).resize(lado, lado).png().toBuffer();
+const grande = (lado) =>
+  sharp(oficial).extract({ left: 12, top: 12, width: 476, height: 476 }).resize(lado, lado).png().toBuffer();
+
+/**
+ * Empaqueta varios PNG en un .ico.
+ *
+ * sharp no exporta ese formato y no valia la pena sumar una dependencia: el
+ * contenedor es una cabecera de 6 bytes, una entrada de 16 por imagen y los
+ * PNG pegados al final. Sigue haciendo falta porque los navegadores piden
+ * /favicon.ico por su cuenta aunque el HTML declare un SVG.
+ */
+function empaquetarIco(imagenes) {
+  const cabecera = Buffer.alloc(6);
+  cabecera.writeUInt16LE(0, 0);                 // reservado
+  cabecera.writeUInt16LE(1, 2);                 // 1 = icono
+  cabecera.writeUInt16LE(imagenes.length, 4);
+
+  let desplazamiento = 6 + imagenes.length * 16;
+  const entradas = imagenes.map(({ lado, datos }) => {
+    const entrada = Buffer.alloc(16);
+    entrada.writeUInt8(lado >= 256 ? 0 : lado, 0);   // 0 significa 256
+    entrada.writeUInt8(lado >= 256 ? 0 : lado, 1);
+    entrada.writeUInt16LE(1, 4);                     // planos
+    entrada.writeUInt16LE(32, 6);                    // bits por pixel
+    entrada.writeUInt32LE(datos.length, 8);
+    entrada.writeUInt32LE(desplazamiento, 12);
+    desplazamiento += datos.length;
+    return entrada;
+  });
+
+  return Buffer.concat([cabecera, ...entradas, ...imagenes.map((i) => i.datos)]);
+}
+
+const LADOS_ICO = [16, 32, 48];
+await writeFile(
+  join(RAIZ, 'public/favicon.ico'),
+  empaquetarIco(await Promise.all(LADOS_ICO.map(async (lado) => ({ lado, datos: await pequeno(lado) })))),
+);
+
+await writeFile(join(RAIZ, 'public/icon-192.png'), await grande(192));
+await writeFile(join(RAIZ, 'public/icon-512.png'), await grande(512));
+
+await writeFile(
+  join(RAIZ, 'public/site.webmanifest'),
+  `${JSON.stringify(
+    {
+      name: 'Inmobiliaria Ferval',
+      short_name: 'Ferval',
+      description: 'Casas y departamentos en la Región del Maule, con subsidio DS19.',
+      start_url: '/',
+      display: 'standalone',
+      background_color: '#FAFAFB',
+      theme_color: GRAFITO,
+      icons: [
+        { src: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+        { src: '/icon-512.png', sizes: '512x512', type: 'image/png' },
+        { src: '/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
+      ],
+    },
+    null,
+    2,
+  )}\n`,
+);
+
 console.log(
-  `og-image.jpg, ${PROYECTOS.length} tarjetas en public/og/ y apple-touch-icon.png generados`,
+  `og-image.jpg, ${PROYECTOS.length} tarjetas en public/og/, favicon.ico (${LADOS_ICO.join('/')}), ` +
+    'icon-192, icon-512, site.webmanifest y apple-touch-icon.png generados',
 );

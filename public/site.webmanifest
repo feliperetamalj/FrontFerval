@@ -1,0 +1,27 @@
+{
+  "name": "Inmobiliaria Ferval",
+  "short_name": "Ferval",
+  "description": "Casas y departamentos en la Región del Maule, con subsidio DS19.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FAFAFB",
+  "theme_color": "#2C292F",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
 
+# Paginas de paso: no aportan nada en un resultado de busqueda.
+Disallow: /gracias
+
 Sitemap: https://fervali.cl/sitemap.xml
