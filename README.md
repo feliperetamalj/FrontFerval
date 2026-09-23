@@ -140,6 +140,30 @@ extra exigido cuesta conversiones.
 
 ---
 
+### Prerenderizado y metadatos
+
+`npm run build` corre tres pasos: `vite build`, después `prerender` y después
+`sitemap`.
+
+**Por qué.** Los robots de WhatsApp, Facebook y X no ejecutan JavaScript: leen
+el HTML tal como llega del servidor. Con una SPA pura las nueve fichas de
+proyecto compartían título, bajada y foto con la portada, y como todos los CTA
+del sitio llevan a WhatsApp era justo el canal donde peor se veía.
+`scripts/prerender.mjs` escribe un HTML por ruta con sus propias etiquetas;
+React toma el control apenas carga, igual que antes.
+
+**Dónde se edita.** Todo sale de `src/data/metadatos.js`, la fuente única del
+prerender, del sitemap y del componente `Meta` del cliente. Para agregar una
+página, súmala a `PAGINAS` de ese archivo y aparece en los tres lados. Las
+fichas de proyecto se derivan solas de `PROYECTOS`.
+
+**Tarjetas sociales.** `npm run social` genera `public/og/<slug>.jpg`, una por
+proyecto, con su foto, comuna y precio, además de los favicons y el
+webmanifest. Hay que volver a correrlo si cambia el logotipo o los datos de un
+proyecto.
+
+---
+
 ## Despliegue en Vercel
 
 1. Sube el repositorio a GitHub.
@@ -154,14 +178,16 @@ No hay variables de entorno que configurar.
 El archivo no admite comentarios —el esquema de Vercel rechaza cualquier
 propiedad que no reconozca, incluida `comment`—, así que la explicación va aquí:
 
-**`rewrites`** — Esto es una SPA: el servidor solo tiene `index.html` y las
-rutas las resuelve React Router en el navegador. Sin la reescritura, entrar
-directo a `/proyecto/rebeca-matte` o recargar esa página devuelve 404, porque
-Vercel busca un archivo con ese nombre y no existe. La expresión excluye
-`assets/`, el favicon, el icono de iOS, la imagen Open Graph, `robots.txt` y
-`sitemap.xml`: esos sí son archivos reales y deben servirse tal cual, no como
-`index.html`. Al agregar un archivo suelto en `public/` hay que sumarlo a esa
-lista, o se servirá el HTML de la portada en su lugar.
+**Ya no hay `rewrites`.** Había un comodín que mandaba todo a `index.html`,
+porque las rutas las resolvía React Router en el navegador. Desde que el build
+prerenderiza (ver la sección siguiente), cada ruta tiene su propio HTML y
+Vercel lo encuentra solo. Lo que no existe cae en `404.html`, que además
+devuelve un 404 de verdad: con el comodín puesto, cualquier URL inventada
+respondía 200 con el sitio entero, y Google eso lo marca como *soft 404*.
+
+De paso desapareció una trampa de mantención: antes, cada archivo nuevo en
+`public/` había que sumarlo a mano a la expresión o se servía el HTML de la
+portada en su lugar.
 
 **`headers` de `/assets/*`** — Vite pone un hash en el nombre de cada archivo
 compilado (`index-BpaivkaF.css`). Si el contenido cambia, cambia el nombre, así
