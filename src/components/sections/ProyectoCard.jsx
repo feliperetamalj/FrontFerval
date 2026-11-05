@@ -28,10 +28,13 @@ const SIZES_ANCHA = '(min-width: 1360px) 846px, (min-width: 900px) 65vw, (min-wi
 
 export function ProyectoCard({ proyecto, formato = 'normal' }) {
   const estado = ESTADOS[proyecto.estado];
+  // Los proyectos con sitio propio llevan alla en vez de a su ficha.
+  const Enlace = proyecto.sitioWeb ? 'a' : Link;
+  const destino = proyecto.sitioWeb ? { href: proyecto.sitioWeb } : { to: `/proyecto/${proyecto.slug}` };
 
   return (
     <article className={`${estilos.tarjeta} ${estilos[formato]}`}>
-      <Link to={`/proyecto/${proyecto.slug}`} className={estilos.enlace}>
+      <Enlace {...destino} className={estilos.enlace}>
         <div className={estilos.media}>
           <img
             src={proyecto.imagenes.hero}
@@ -100,7 +103,7 @@ export function ProyectoCard({ proyecto, formato = 'normal' }) {
             <Icono nombre="flechaDerecha" tamano={17} />
           </span>
         </div>
-      </Link>
+      </Enlace>
     </article>
   );
 }

@@ -107,6 +107,9 @@ function descripcionProyecto(proyecto) {
 }
 
 /** Ruta publica de la ficha de un proyecto. */
+/** Los proyectos con sitio propio redirigen alla: no llevan ficha ni entran al sitemap. */
+const FICHAS_PROPIAS = PROYECTOS.filter((p) => !p.sitioWeb);
+
 export const rutaProyecto = (slug) => `/proyecto/${slug}`;
 
 /**
@@ -161,14 +164,14 @@ export function rutasPublicas() {
     .filter(([, meta]) => !meta.noindex)
     .map(([ruta, meta]) => ({ ruta, prioridad: meta.prioridad ?? '0.5' }));
 
-  const fichas = PROYECTOS.map((p) => ({ ruta: rutaProyecto(p.slug), prioridad: '0.8' }));
+  const fichas = FICHAS_PROPIAS.map((p) => ({ ruta: rutaProyecto(p.slug), prioridad: '0.8' }));
 
   return [...fijas.slice(0, 1), ...fichas, ...fijas.slice(1)];
 }
 
 /** Todas las rutas que el build debe escribir como HTML, incluidas las noindex. */
 export function rutasAPrerenderizar() {
-  return [...Object.keys(PAGINAS).filter((r) => r !== '/404'), ...PROYECTOS.map((p) => rutaProyecto(p.slug))];
+  return [...Object.keys(PAGINAS).filter((r) => r !== '/404'), ...FICHAS_PROPIAS.map((p) => rutaProyecto(p.slug))];
 }
 
 export { EMPRESA };

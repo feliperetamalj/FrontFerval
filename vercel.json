@@ -3,6 +3,13 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "framework": "vite",
+  "redirects": [
+    {
+      "source": "/proyecto/reserva-las-rastras",
+      "destination": "https://front-reserva-las-rastras-ferval.vercel.app",
+      "permanent": false
+    }
+  ],
   "headers": [
     {
       "source": "/assets/(.*)",

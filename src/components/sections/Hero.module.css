@@ -123,85 +123,7 @@
   color: var(--white);
 }
 
-/* --- Tarjeta del proyecto insignia ---------------------------------------- */
-.destacado {
-  position: absolute;
-  z-index: var(--z-base);
-  inset-inline-end: var(--gutter);
-  inset-block-end: var(--space-9);
-  display: flex;
-  align-items: center;
-  gap: var(--space-4);
-  width: min(360px, 40vw);
-  padding: var(--space-3);
-  background-color: rgba(19, 18, 21, 0.58);
-  backdrop-filter: blur(16px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: var(--radius-lg);
-  text-decoration: none;
-  transition:
-    background-color var(--dur-base) var(--ease-out),
-    border-color var(--dur-base) var(--ease-out),
-    transform var(--dur-base) var(--ease-out);
-}
-
-.destacado:hover {
-  background-color: rgba(19, 18, 21, 0.74);
-  border-color: rgba(255, 255, 255, 0.3);
-  transform: translateY(-3px);
-}
-
-.destacadoImg {
-  width: 76px;
-  height: 76px;
-  object-fit: cover;
-  border-radius: var(--radius-md);
-  flex-shrink: 0;
-}
-
-.destacadoTexto {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  min-width: 0;
-}
-
-.destacadoEtiqueta {
-  color: var(--brand);
-  font-family: var(--font-display);
-  font-size: 0.625rem;
-  font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-widest);
-  text-transform: uppercase;
-}
-
-.destacadoNombre {
-  color: var(--white);
-  font-family: var(--font-display);
-  font-size: var(--text-md);
-  font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-tight);
-}
-
-.destacadoComuna {
-  color: rgba(255, 255, 255, 0.66);
-  font-size: var(--text-xs);
-}
-
-.destacadoFlecha {
-  margin-inline-start: auto;
-  flex-shrink: 0;
-  color: var(--white);
-  transition: transform var(--dur-base) var(--ease-out);
-}
-
-.destacado:hover .destacadoFlecha { transform: translateX(4px); }
-
 /* --- Adaptacion ----------------------------------------------------------- */
-@media (max-width: 1180px) {
-  .destacado { display: none; }
-}
-
 @media (max-width: 860px) {
   /*
     El velo lateral existe para asentar el titular sobre el costado izquierdo
@@ -228,11 +150,4 @@
   .linea { display: inline; }
   .cifras { gap: var(--space-6) var(--space-7); }
   .acciones > * { flex: 1 1 100%; }
-}
-
-@media (prefers-reduced-transparency: reduce) {
-  .destacado {
-    background-color: var(--graf-900);
-    backdrop-filter: none;
-  }
 }

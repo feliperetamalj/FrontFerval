@@ -1,7 +1,5 @@
-import { Link } from 'react-router-dom';
-
-import { Boton, Contenedor, Icono } from '../ui/index.js';
-import { IMAGENES_GENERALES, CIFRAS, PROYECTO_DESTACADO } from '../../data/proyectos.js';
+import { Boton, Contenedor } from '../ui/index.js';
+import { IMAGENES_GENERALES, CIFRAS } from '../../data/proyectos.js';
 import { EMPRESA } from '../../data/empresa.js';
 import { formatearUF, formatearNumero } from '../../utils/formato.js';
 import { enlaceWhatsApp, MENSAJE_GENERAL } from '../../utils/contacto.js';
@@ -90,26 +88,6 @@ export function Hero() {
           </div>
         </dl>
       </Contenedor>
-
-      {/* Acceso directo al proyecto insignia, anclado a la esquina. */}
-      <Link to={`/proyecto/${PROYECTO_DESTACADO.slug}`} className={estilos.destacado}>
-        <img
-          src={PROYECTO_DESTACADO.imagenes.hero}
-          srcSet={PROYECTO_DESTACADO.imagenes.heroSrcSet}
-          sizes="72px"
-          alt=""
-          className={estilos.destacadoImg}
-          loading="lazy"
-        />
-        <span className={estilos.destacadoTexto}>
-          <span className={estilos.destacadoEtiqueta}>Proyecto insignia</span>
-          <span className={estilos.destacadoNombre}>{PROYECTO_DESTACADO.nombre}</span>
-          <span className={estilos.destacadoComuna}>
-            {PROYECTO_DESTACADO.comuna} · Casas de 150 a 308 m²
-          </span>
-        </span>
-        <Icono nombre="flechaDerecha" tamano={20} className={estilos.destacadoFlecha} />
-      </Link>
     </section>
   );
 }

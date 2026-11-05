@@ -120,7 +120,10 @@ export const PROYECTOS = [
     region: 'Región del Maule',
     estado: 'en-venta',
     subsidio: false,
-    destacado: true,
+    // Tiene sitio propio: las tarjetas llevan ahi y /proyecto/reserva-las-rastras
+    // redirige (vercel.json). Dominio provisional de Vercel; al cambiarlo,
+    // actualizar tambien la redireccion.
+    sitioWeb: 'https://front-reserva-las-rastras-ferval.vercel.app',
     titular: 'El barrio residencial más exclusivo de la región del Maule',
     resumen:
       'Seis modelos de casa en sitios urbanizados, más sitios desde 500 m² para construir a medida.',
@@ -215,7 +218,6 @@ export const PROYECTOS = [
     region: 'Región del Maule',
     estado: 'en-venta',
     subsidio: true,
-    destacado: false,
     titular: 'Todo gran comienzo merece un gran lugar en Linares',
     resumen:
       'Departamentos de 3 dormitorios con estacionamiento, en un condominio con áreas verdes y juegos infantiles.',
@@ -274,7 +276,6 @@ export const PROYECTOS = [
     region: "Región de O'Higgins",
     estado: 'entrega-inmediata',
     subsidio: true,
-    destacado: false,
     titular: 'Un parque para vivir mejor, en San Fernando',
     resumen:
       'Departamentos de 3 dormitorios y 2 baños con estacionamiento incluido, en un conjunto cerrado con locales comerciales.',
@@ -322,7 +323,6 @@ export const PROYECTOS = [
     region: 'Región de Valparaíso',
     estado: 'en-venta',
     subsidio: true,
-    destacado: false,
     titular: 'En Quillota, a pasos del Camino Internacional',
     resumen:
       'Departamentos DS19 a pasos del Camino Internacional, con conexión directa a Viña del Mar, Valparaíso y Santiago.',
@@ -370,7 +370,6 @@ export const PROYECTOS = [
     region: 'Región del Maule',
     estado: 'entrega-inmediata',
     subsidio: false,
-    destacado: false,
     titular: 'Entrega inmediata y conexión directa con Ruta 5 Sur',
     resumen: '66 casas de 84 m² en terrenos amplios, con 3 dormitorios y 2 baños.',
     descripcion:
@@ -417,7 +416,6 @@ export const PROYECTOS = [
     region: 'Región del Maule',
     estado: 'en-venta',
     subsidio: false,
-    destacado: false,
     titular: 'Casas de 84 m² con el centro de Linares a mano',
     resumen: '64 casas de 84 m² con 3 dormitorios y 2 baños, cerca del centro de Linares.',
     descripcion:
@@ -462,7 +460,6 @@ export const PROYECTOS = [
     region: 'Región del Maule',
     estado: 'en-venta',
     subsidio: false,
-    destacado: false,
     titular: 'Al lado de las universidades y del Mall Plaza Maule',
     resumen:
       'Departamentos de 65 m² con quincho, piscina y juegos infantiles, cerca de universidades y Mall Plaza Maule.',
@@ -510,7 +507,6 @@ export const PROYECTOS = [
     region: 'Región del Maule',
     estado: 'en-venta',
     subsidio: true,
-    destacado: false,
     titular: 'Casas con subsidio DS19, cerca del centro de Linares',
     resumen:
       '195 casas en cuatro modelos, de 65 a 84 m², todas con subsidio DS19.',
@@ -552,7 +548,6 @@ export const PROYECTOS = [
     region: 'Región del Maule',
     estado: 'en-venta',
     subsidio: true,
-    destacado: false,
     titular: 'Vive a pasos del centro de San Javier y de la Ruta 5 Sur',
     resumen:
       '490 viviendas en dos etapas, en los terrenos de la histórica Viña Balduzzi, con acceso por Avenida Balmaceda.',
@@ -631,9 +626,6 @@ export const ESTADOS_PROXIMOS = {
 
 /** Busca un proyecto por su slug de URL. */
 export const proyectoPorSlug = (slug) => PROYECTOS.find((p) => p.slug === slug);
-
-/** Proyecto destacado de la portada. */
-export const PROYECTO_DESTACADO = PROYECTOS.find((p) => p.destacado) ?? PROYECTOS[0];
 
 /** Comunas presentes en el portafolio, ordenadas alfabeticamente. */
 export const COMUNAS = [...new Set(PROYECTOS.map((p) => p.comuna))].sort((a, b) =>
