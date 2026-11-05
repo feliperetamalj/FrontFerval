@@ -151,7 +151,7 @@ export function Galeria({ imagenes, nombreProyecto }) {
                   <img
                     src={imagen.src}
                     srcSet={imagen.srcSet}
-                    sizes="(min-width: 1360px) 1200px, 94vw"
+                    sizes="(min-width: 940px) 880px, 94vw"
                     alt={`${nombreProyecto}, imagen ${i + 1}`}
                     loading={i === 0 ? 'eager' : 'lazy'}
                     decoding="async"
