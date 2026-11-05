@@ -166,9 +166,12 @@ for (const proyecto of PROYECTOS) {
 
   const lineas = enLineas(proyecto.nombre, 18);
   const baseY = 300 - (lineas.length - 1) * 34;
-  const precio = proyecto.desdeUF
-    ? `DESDE UF ${proyecto.desdeUF.toLocaleString('es-CL')}`
-    : 'PRECIO A CONSULTAR';
+  const precio =
+    proyecto.estado === 'vendido'
+      ? '100% VENDIDO'
+      : proyecto.desdeUF
+        ? `DESDE UF ${proyecto.desdeUF.toLocaleString('es-CL')}`
+        : 'PRECIO A CONSULTAR';
 
   const capa = Buffer.from(`
 <svg xmlns="http://www.w3.org/2000/svg" width="${ANCHO}" height="${ALTO}">

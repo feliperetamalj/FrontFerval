@@ -50,7 +50,7 @@ export function Portafolio() {
         <EncabezadoSeccion
           etiqueta="Portafolio"
           titulo={<>Proyectos que<br />construyen futuro.</>}
-          bajada="Departamentos con subsidio, casas familiares y sitios exclusivos en cinco comunas. Filtra por lo que estás buscando."
+          bajada={`Departamentos con subsidio, casas familiares y sitios exclusivos en ${COMUNAS.length} comunas. Filtra por lo que estás buscando.`}
         />
 
         {/* --- Filtros --- */}
@@ -89,7 +89,7 @@ export function Portafolio() {
               aria-pressed={soloSubsidio}
             >
               <Icono nombre="escudo" tamano={16} />
-              Con subsidio DS19
+              Con subsidio
             </button>
           </div>
         </div>

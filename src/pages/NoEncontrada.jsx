@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 import { Boton, Contenedor, Seccion } from '../components/ui/index.js';
 import { ProyectoCard } from '../components/sections/index.js';
-import { PROYECTOS } from '../data/proyectos.js';
+import { PROYECTOS, disponible } from '../data/proyectos.js';
 import estilos from './NoEncontrada.module.css';
 
 /**
@@ -13,7 +13,7 @@ import estilos from './NoEncontrada.module.css';
  */
 export function NoEncontrada() {
   const sugeridos = [...PROYECTOS]
-    .filter((p) => typeof p.desdeUF === 'number')
+    .filter((p) => disponible(p) && typeof p.desdeUF === 'number')
     .sort((a, b) => a.desdeUF - b.desdeUF)
     .slice(0, 3);
 

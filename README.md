@@ -35,7 +35,7 @@ El sitio queda en `http://localhost:5173`.
 ```
 src/
 ├── data/           Contenido del sitio. Editar aquí, no en los componentes.
-│   ├── proyectos.js    Los 9 proyectos: modelos, UF, m², ejecutivas, imágenes
+│   ├── proyectos.js    Los proyectos: modelos, UF, m², ejecutivas, imágenes
 │   └── empresa.js      Datos de contacto, pilares, proceso y navegación
 ├── styles/
 │   ├── tokens.css      Sistema de diseño: color, tipografía, espacio, motion

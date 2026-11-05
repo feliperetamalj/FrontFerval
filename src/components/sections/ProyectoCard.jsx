@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import { Etiqueta, Icono } from '../ui/index.js';
-import { ESTADOS } from '../../data/proyectos.js';
+import { ESTADOS, disponible } from '../../data/proyectos.js';
 import { formatearUF, formatearRangoM2Compacto, formatearRangoSimple } from '../../utils/formato.js';
 import estilos from './ProyectoCard.module.css';
 
@@ -50,7 +50,7 @@ export function ProyectoCard({ proyecto, formato = 'normal' }) {
             <Etiqueta tono={estado.tono === 'exito' ? 'exito' : 'claro'} punto>
               {estado.etiqueta}
             </Etiqueta>
-            {proyecto.subsidio && <Etiqueta tono="claro">Subsidio DS19</Etiqueta>}
+            {proyecto.subsidio && <Etiqueta tono="claro">Subsidio {proyecto.subsidio}</Etiqueta>}
           </div>
 
           {proyecto.imagenes.logo && (
@@ -79,8 +79,17 @@ export function ProyectoCard({ proyecto, formato = 'normal' }) {
           {/* Ficha tecnica. `dl` porque son pares atributo/valor. */}
           <dl className={estilos.especificaciones}>
             <div className={estilos.precio}>
-              <dt>Desde</dt>
-              <dd className="tabular">{formatearUF(proyecto.desdeUF)}</dd>
+              {disponible(proyecto) ? (
+                <>
+                  <dt>Desde</dt>
+                  <dd className="tabular">{formatearUF(proyecto.desdeUF)}</dd>
+                </>
+              ) : (
+                <>
+                  <dt>Estado</dt>
+                  <dd>100% vendido</dd>
+                </>
+              )}
             </div>
             <div className={estilos.specs}>
               <div className={estilos.spec}>

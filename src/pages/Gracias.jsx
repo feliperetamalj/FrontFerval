@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Boton, Contenedor, Icono, Seccion } from '../components/ui/index.js';
 import { ProyectoCard } from '../components/sections/index.js';
 import { EMPRESA } from '../data/empresa.js';
-import { PROYECTOS } from '../data/proyectos.js';
+import { PROYECTOS, disponible } from '../data/proyectos.js';
 import estilos from './Gracias.module.css';
 
 /**
@@ -20,7 +20,7 @@ import estilos from './Gracias.module.css';
  */
 export function Gracias() {
   const sugeridos = [...PROYECTOS]
-    .filter((p) => p.estado === 'entrega-inmediata' || p.subsidio)
+    .filter((p) => disponible(p) && (p.estado === 'entrega-inmediata' || p.subsidio))
     .slice(0, 3);
 
   return (

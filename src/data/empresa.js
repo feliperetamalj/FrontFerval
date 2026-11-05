@@ -108,7 +108,7 @@ export const PROCESO = [
 /** Enlaces del menu principal. Un unico origen para header y footer. */
 export const NAVEGACION = [
   { etiqueta: 'Proyectos', href: '/#proyectos' },
-  { etiqueta: 'Subsidio DS19', href: '/#subsidio' },
+  { etiqueta: 'Subsidio', href: '/#subsidio' },
   { etiqueta: 'Nosotros', href: '/#nosotros' },
   { etiqueta: 'Contacto', href: '/#contacto' },
 ];

@@ -84,9 +84,12 @@ const PAGINAS = {
  */
 function descripcionProyecto(proyecto) {
   const cabeza = `${proyecto.nombre}, ${proyecto.comuna}.`;
-  const precio = proyecto.desdeUF
-    ? `Desde UF ${proyecto.desdeUF.toLocaleString('es-CL')}.`
-    : 'Precio a consultar.';
+  const precio =
+    proyecto.estado === 'vendido'
+      ? '100% vendido.'
+      : proyecto.desdeUF
+        ? `Desde UF ${proyecto.desdeUF.toLocaleString('es-CL')}.`
+        : 'Precio a consultar.';
 
   /*
     El precio y el subsidio son el dato que decide el clic, asi que van
@@ -100,7 +103,7 @@ function descripcionProyecto(proyecto) {
   };
 
   return (
-    (proyecto.subsidio && armarCon(`${precio} Con subsidio DS19.`)) ||
+    (proyecto.subsidio && armarCon(`${precio} Con subsidio ${proyecto.subsidio}.`)) ||
     armarCon(precio) ||
     recortar(`${cabeza} ${precio}`, LARGO_DESCRIPCION)
   );

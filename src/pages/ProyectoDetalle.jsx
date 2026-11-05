@@ -3,7 +3,7 @@ import { Link, Navigate, useParams } from 'react-router-dom';
 
 import { Boton, Contenedor, Etiqueta, Icono, Reveal, Seccion } from '../components/ui/index.js';
 import { Galeria, ProyectoCard, VisorPlano } from '../components/sections/index.js';
-import { proyectoPorSlug, PROYECTOS, ESTADOS } from '../data/proyectos.js';
+import { proyectoPorSlug, PROYECTOS, ESTADOS, disponible } from '../data/proyectos.js';
 import { EMPRESA } from '../data/empresa.js';
 import {
   formatearUF,
@@ -36,12 +36,15 @@ export function ProyectoDetalle() {
   if (!proyecto) return <Navigate to="/404" replace />;
 
   const estado = ESTADOS[proyecto.estado];
+  // Un proyecto vendido sigue publicado como trayectoria, pero sin precios
+  // ni botones de cotizar: no hay nada que vender.
+  const vendido = !disponible(proyecto);
   const mensaje = mensajeProyecto(proyecto);
   const contactoPrincipal = proyecto.ejecutivas[0];
   const whatsapp = contactoPrincipal?.whatsapp ?? EMPRESA.contacto.whatsapp;
   const correo = contactoPrincipal?.email ?? EMPRESA.contacto.email;
 
-  const otros = PROYECTOS.filter((p) => p.slug !== proyecto.slug).slice(0, 3);
+  const otros = PROYECTOS.filter((p) => p.slug !== proyecto.slug && disponible(p)).slice(0, 3);
 
   return (
     <article>
@@ -72,7 +75,7 @@ export function ProyectoDetalle() {
             <Etiqueta tono={estado.tono === 'exito' ? 'exito' : 'claro'} punto>
               {estado.etiqueta}
             </Etiqueta>
-            {proyecto.subsidio && <Etiqueta tono="claro">Subsidio DS19</Etiqueta>}
+            {proyecto.subsidio && <Etiqueta tono="claro">Subsidio {proyecto.subsidio}</Etiqueta>}
             <Etiqueta tono="claro">
               {proyecto.tipo === 'casa' ? 'Casas' : 'Departamentos'}
             </Etiqueta>
@@ -95,8 +98,8 @@ export function ProyectoDetalle() {
         <Contenedor>
           <dl className={estilos.datos}>
             <div className={estilos.datoDestacado}>
-              <dt>Precio desde</dt>
-              <dd className="tabular">{formatearUF(proyecto.desdeUF)}</dd>
+              <dt>{vendido ? 'Estado' : 'Precio desde'}</dt>
+              <dd className="tabular">{vendido ? '100% vendido' : formatearUF(proyecto.desdeUF)}</dd>
             </div>
             <div className={estilos.dato}>
               <dt>Superficie</dt>
@@ -124,24 +127,26 @@ export function ProyectoDetalle() {
             )}
           </dl>
 
-          <div className={estilos.accionesBarra}>
-            <Boton
-              como="a"
-              href={enlaceWhatsApp(whatsapp, mensaje)}
-              target="_blank"
-              rel="noopener noreferrer"
-              icono="whatsapp"
-            >
-              Cotizar por WhatsApp
-            </Boton>
-            <Boton
-              como="a"
-              href={enlaceCorreo(correo, `Consulta por ${proyecto.nombre}`, mensaje)}
-              variante="contorno"
-            >
-              Cotizar por correo
-            </Boton>
-          </div>
+          {!vendido && (
+            <div className={estilos.accionesBarra}>
+              <Boton
+                como="a"
+                href={enlaceWhatsApp(whatsapp, mensaje)}
+                target="_blank"
+                rel="noopener noreferrer"
+                icono="whatsapp"
+              >
+                Cotizar por WhatsApp
+              </Boton>
+              <Boton
+                como="a"
+                href={enlaceCorreo(correo, `Consulta por ${proyecto.nombre}`, mensaje)}
+                variante="contorno"
+              >
+                Cotizar por correo
+              </Boton>
+            </div>
+          )}
         </Contenedor>
       </div>
 
@@ -255,10 +260,12 @@ export function ProyectoDetalle() {
                   )}
 
                   <footer className={estilos.modeloPie}>
-                    <p className={estilos.modeloPrecio}>
-                      <span className={estilos.modeloPrecioEtiqueta}>Desde</span>
-                      <span className="tabular">{formatearUF(modelo.uf)}</span>
-                    </p>
+                    {!vendido && (
+                      <p className={estilos.modeloPrecio}>
+                        <span className={estilos.modeloPrecioEtiqueta}>Desde</span>
+                        <span className="tabular">{formatearUF(modelo.uf)}</span>
+                      </p>
+                    )}
                     <div className={estilos.modeloAcciones}>
                       {modelo.planos?.length > 0 && (
                         <Boton
@@ -270,19 +277,21 @@ export function ProyectoDetalle() {
                           Ver plano
                         </Boton>
                       )}
-                      <Boton
-                        como="a"
-                        href={enlaceWhatsApp(
-                          whatsapp,
-                          `Hola, me interesa el modelo ${modelo.nombre} de ${proyecto.nombre} en ${proyecto.comuna}.`,
-                        )}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        variante="contorno"
-                        tamano="sm"
-                      >
-                        Consultar
-                      </Boton>
+                      {!vendido && (
+                        <Boton
+                          como="a"
+                          href={enlaceWhatsApp(
+                            whatsapp,
+                            `Hola, me interesa el modelo ${modelo.nombre} de ${proyecto.nombre} en ${proyecto.comuna}.`,
+                          )}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          variante="contorno"
+                          tamano="sm"
+                        >
+                          Consultar
+                        </Boton>
+                      )}
                     </div>
                   </footer>
                 </article>
@@ -300,14 +309,18 @@ export function ProyectoDetalle() {
           <div className={estilos.venta}>
             <div>
               <h2 className={estilos.ventaTitulo}>
-                {proyecto.ejecutivas.length > 0
-                  ? 'Habla directo con quien vende este proyecto'
-                  : '¿Te interesa este proyecto?'}
+                {vendido
+                  ? 'Este proyecto ya está 100% vendido'
+                  : proyecto.ejecutivas.length > 0
+                    ? 'Habla directo con quien vende este proyecto'
+                    : '¿Te interesa este proyecto?'}
               </h2>
               <p className={estilos.ventaTexto}>
-                {proyecto.ejecutivas.length > 0
-                  ? 'Sin call center ni formularios que nadie contesta. Escríbeles por WhatsApp y agenda una visita.'
-                  : 'Escríbenos y coordinamos una visita al proyecto con una ejecutiva.'}
+                {vendido
+                  ? 'Tenemos otros proyectos disponibles en la región. Revísalos o escríbenos y te ayudamos a elegir.'
+                  : proyecto.ejecutivas.length > 0
+                    ? 'Sin call center ni formularios que nadie contesta. Escríbeles por WhatsApp y agenda una visita.'
+                    : 'Escríbenos y coordinamos una visita al proyecto con una ejecutiva.'}
               </p>
             </div>
 
@@ -316,7 +329,7 @@ export function ProyectoDetalle() {
                 {proyecto.ejecutivas.map((ejecutiva) => (
                   <li key={ejecutiva.email} className={estilos.ejecutiva}>
                     <div className={estilos.ejecutivaDatos}>
-                      <h3>{ejecutiva.nombre}</h3>
+                      <h3>{ejecutiva.etapa ? `${ejecutiva.nombre} · ${ejecutiva.etapa}` : ejecutiva.nombre}</h3>
                       <a href={`mailto:${ejecutiva.email}`} className={estilos.ejecutivaCorreo}>
                         {ejecutiva.email}
                       </a>
@@ -346,8 +359,13 @@ export function ProyectoDetalle() {
                 >
                   Escribir por WhatsApp
                 </Boton>
-                <Boton como="a" href="/#contacto" variante="contornoClaro" tamano="lg">
-                  Ir al formulario
+                <Boton
+                  como="a"
+                  href={vendido ? '/#proyectos' : '/#contacto'}
+                  variante="contornoClaro"
+                  tamano="lg"
+                >
+                  {vendido ? 'Ver proyectos disponibles' : 'Ir al formulario'}
                 </Boton>
               </div>
             )}
