@@ -1,0 +1,14 @@
+/* Misma rejilla que el portafolio, para que las tarjetas midan igual. */
+.rejilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--space-5);
+}
+
+/* Reveal es un div intermedio: debe estirarse para que la tarjeta llene la celda. */
+.rejilla > * { display: flex; }
+.rejilla > * > * { width: 100%; }
+
+@media (max-width: 560px) {
+  .rejilla { grid-template-columns: 1fr; }
+}

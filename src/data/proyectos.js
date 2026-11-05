@@ -811,19 +811,27 @@ export const ESTADOS_PROXIMOS = {
 /** Busca un proyecto por su slug de URL. */
 export const proyectoPorSlug = (slug) => PROYECTOS.find((p) => p.slug === slug);
 
+/** Lo que se puede comprar hoy: alimenta el portafolio y sus filtros. */
+export const DISPONIBLES = PROYECTOS.filter(disponible);
+
+/** Proyectos 100% vendidos: van en su propia seccion, como trayectoria. */
+export const PASADOS = PROYECTOS.filter((p) => !disponible(p));
+
 /** Comunas presentes en el portafolio, ordenadas alfabeticamente. */
-export const COMUNAS = [...new Set(PROYECTOS.map((p) => p.comuna))].sort((a, b) =>
+export const COMUNAS = [...new Set(DISPONIBLES.map((p) => p.comuna))].sort((a, b) =>
   a.localeCompare(b, 'es'),
 );
 
 /** Precio de entrada mas bajo de lo que sigue a la venta (para el hero). */
 export const UF_MINIMA = Math.min(
-  ...PROYECTOS.filter(disponible).map((p) => p.desdeUF).filter((uf) => typeof uf === 'number'),
+  ...DISPONIBLES.map((p) => p.desdeUF).filter((uf) => typeof uf === 'number'),
 );
 
 /** Cifras que se muestran en la barra de trayectoria. */
 export const CIFRAS = {
+  // Trayectoria: cuenta tambien los vendidos.
   proyectos: PROYECTOS.length,
+  disponibles: DISPONIBLES.length,
   comunas: COMUNAS.length,
   viviendas: PROYECTOS.reduce((total, p) => total + (p.unidades ?? 0), 0),
   ufMinima: UF_MINIMA,

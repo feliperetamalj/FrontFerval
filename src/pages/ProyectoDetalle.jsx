@@ -66,7 +66,11 @@ export function ProyectoDetalle() {
           <nav className={estilos.migas} aria-label="Ruta de navegación">
             <Link to="/">Inicio</Link>
             <span aria-hidden="true">/</span>
-            <Link to="/#proyectos">Proyectos</Link>
+            {vendido ? (
+              <Link to="/#proyectos-pasados">Proyectos pasados</Link>
+            ) : (
+              <Link to="/#proyectos">Proyectos</Link>
+            )}
             <span aria-hidden="true">/</span>
             <span aria-current="page">{proyecto.nombre}</span>
           </nav>

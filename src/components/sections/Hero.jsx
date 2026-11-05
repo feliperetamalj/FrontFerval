@@ -53,7 +53,7 @@ export function Hero() {
 
         <div className={estilos.acciones}>
           <Boton como="a" href="#proyectos" tamano="lg" icono="flechaAbajo">
-            Ver los {CIFRAS.proyectos} proyectos
+            Ver los {CIFRAS.disponibles} proyectos
           </Boton>
           <Boton
             como="a"

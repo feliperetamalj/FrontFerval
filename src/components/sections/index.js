@@ -2,6 +2,7 @@
 export { Hero } from './Hero.jsx';
 export { Portafolio } from './Portafolio.jsx';
 export { Proximos } from './Proximos.jsx';
+export { ProyectosPasados } from './ProyectosPasados.jsx';
 export { PorQue } from './PorQue.jsx';
 export { Subsidio } from './Subsidio.jsx';
 export { Proceso } from './Proceso.jsx';

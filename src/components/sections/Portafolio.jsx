@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 
 import { Contenedor, EncabezadoSeccion, Reveal, Seccion, Icono } from '../ui/index.js';
 import { ProyectoCard } from './ProyectoCard.jsx';
-import { PROYECTOS, COMUNAS } from '../../data/proyectos.js';
+import { DISPONIBLES, COMUNAS } from '../../data/proyectos.js';
 import estilos from './Portafolio.module.css';
 
 /** Opciones del filtro por tipo de vivienda. */
@@ -27,7 +27,7 @@ export function Portafolio() {
 
   const proyectosFiltrados = useMemo(
     () =>
-      PROYECTOS.filter((proyecto) => {
+      DISPONIBLES.filter((proyecto) => {
         if (tipo !== 'todos' && proyecto.tipo !== tipo) return false;
         if (comuna !== 'todas' && proyecto.comuna !== comuna) return false;
         if (soloSubsidio && !proyecto.subsidio) return false;
@@ -97,9 +97,9 @@ export function Portafolio() {
         {/* Recuento en vivo. `aria-live` lo anuncia a los lectores de pantalla
             cuando cambia el filtro, que de otro modo no notarian nada. */}
         <p className={estilos.recuento} aria-live="polite">
-          {proyectosFiltrados.length === PROYECTOS.length
-            ? `${PROYECTOS.length} proyectos disponibles`
-            : `${proyectosFiltrados.length} de ${PROYECTOS.length} proyectos`}
+          {proyectosFiltrados.length === DISPONIBLES.length
+            ? `${DISPONIBLES.length} proyectos disponibles`
+            : `${proyectosFiltrados.length} de ${DISPONIBLES.length} proyectos`}
           {hayFiltros && (
             <button type="button" className={estilos.limpiar} onClick={limpiar}>
               <Icono nombre="cerrar" tamano={14} />

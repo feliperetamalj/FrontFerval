@@ -6,6 +6,7 @@ import {
   Subsidio,
   Proceso,
   Nosotros,
+  ProyectosPasados,
   Contacto,
 } from '../components/sections/index.js';
 
@@ -21,7 +22,8 @@ import {
  *   5. Subsidio    ..... la objecion principal: "¿califico?"
  *   6. Proceso     ..... la objecion secundaria: "¿como se hace?"
  *   7. Nosotros    ..... prueba de que construyen de verdad
- *   8. Contacto    ..... la conversion
+ *   8. Pasados     ..... proyectos ya vendidos, la misma prueba con nombre
+ *   9. Contacto    ..... la conversion
  *
  * El portafolio va antes que el discurso institucional a proposito: quien
  * llega a un sitio inmobiliario quiere ver casas, no leer sobre la empresa.
@@ -36,6 +38,7 @@ export function Inicio() {
       <Subsidio />
       <Proceso />
       <Nosotros />
+      <ProyectosPasados />
       <Contacto />
     </>
   );
